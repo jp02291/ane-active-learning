@@ -1,0 +1,30 @@
+# Outputs a run regenerates. Ignored by default so that a working directory
+# stays clean, then re-included below for the specific artifacts that are part
+# of the release and are listed in SHA256_MANIFEST.csv.
+artifacts/
+data/split/*
+*.h5
+*.keras
+*.joblib
+*.png
+
+# Committed on purpose: the configuration, the measured data, the recovered
+# cycle-1 partition, and the figures the analysis scripts emit. These are all
+# manifest-listed, so excluding them would break SHA256_MANIFEST.csv. Note that
+# `data/split/*` above ignores the contents of that directory rather than the
+# directory itself, so the negation below can reach inside it.
+!configs/*.yaml
+!data/data.csv
+!data/split/cycle1/
+!analysis/**/*.png
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+.ipynb_checkpoints/
+.DS_Store
