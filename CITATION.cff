@@ -12,20 +12,20 @@ authors:
   - family-names: Park
     given-names: Jinho
     affiliation: "Department of Mechanical Engineering, Pohang University of Science and Technology (POSTECH)"
-    # orcid: "https://orcid.org/<<FILL>>"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"  # add if available
   - family-names: Jang
     given-names: Byungkwan
     affiliation: "Satellite & Space Exploration Mechanical Team, Korea Aerospace Research Institute (KARI)"
-    # orcid: "https://orcid.org/<<FILL>>"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"  # add if available
   - family-names: Yu
     given-names: Hyun
     affiliation: "Department of Mechanical Engineering, Pohang University of Science and Technology (POSTECH)"
-    # orcid: "https://orcid.org/<<FILL>>"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"  # add if available
   - family-names: Jin
     given-names: Hyungyu
     affiliation: "Department of Mechanical Engineering, Pohang University of Science and Technology (POSTECH)"
     email: hgjin@postech.ac.kr
-    # orcid: "https://orcid.org/<<FILL>>"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"  # add if available
 version: 1.2.0
 license: MIT
 date-released: "2026-08-20"

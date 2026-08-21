@@ -307,9 +307,29 @@ that survive were edited after the campaign finished, during exploratory
 testing, and several of their settings no longer match the runs behind the
 reported results. Publishing them would mean publishing code that does not
 reproduce the paper. The values that do are in `configs/default.yaml`, and the
-places where the two disagree are recorded in the test suite so that neither
-side can drift silently -- see `test_search_bounds_superseding_the_surviving_notebook`
-and `test_gan_config_values_superseding_the_surviving_notebook`.
+test suite pins both sides so that neither can drift silently. The two sources
+do not disagree uniformly: the DNN search bounds are a case where the
+configuration deliberately departs from the surviving notebook
+(`test_search_bounds_superseding_the_surviving_notebook`), while the GAN block
+follows it throughout and is pinned value by value
+(`test_gan_config_matches_the_notebook_everywhere`).
+
+The campaign's own run outputs for cycles 2 and 3. `split_manifest.json`,
+`best_params.json` and `scenario_summary.csv` were not archived for those
+cycles, so a reader can re-run the workflow but cannot check the reported
+numbers against records of the runs that produced them. Cycle 1 is the
+exception: its 36/9 partition was recovered and is deposited under
+`data/split/cycle1/`.
+
+The electrical conductivities as reported by Refs [1] and [2]. Those values
+were used during the campaign but were not carried into this repository, so
+`data/literature_reconstruction.csv` recovers the column from the deposited
+totals as `sigma = (kappa_total - kappa_L) / (L0 T)`. The recovered values,
+0.88-1.92e6 S/m, lie in the same range as the measured conductivities of
+Supplementary Table S7, but the column is not independent of the reconstruction
+it feeds. Substituting the reported conductivities would turn
+`tests/test_callaway_reconstruction.py` from a consistency check into an
+end-to-end one.
 
 ---
 
@@ -331,23 +351,6 @@ The article this accompanies is named in the title above; cite it from the
 journal record once it appears.
 
 ---
-
-## Before this repository is made public
-
-- [x] Zenodo archive DOI (10.5281/zenodo.21913047) in `README.md` and `CITATION.cff`
-- [ ] on the Zenodo record, a related identifier of type "is supplement to"
-      pointing at the article DOI, once the article has one
-- [ ] author ORCIDs in `CITATION.cff`, if the authors have them
-- [x] the augmentation size selected in each cycle -- n = 200 in cycles 1 and 3,
-      no augmentation in cycle 2 -- now pinned in `configs/cycle{1,2,3}.yaml`
-- [x] numerical source data for Fig. 5, now in `data/fig5_source_data.csv`
-- [ ] whatever survives of the campaign's own outputs, under `reported_runs/cycleN/`
-      -- `split_manifest.json`, `best_params.json`, `scenario_summary.csv`. These
-      are what would let a reader check the reported numbers rather than merely
-      re-run the workflow; deposit whatever exists, even if incomplete
-- [ ] the electrical conductivities reported by Refs [1] and [2], replacing the
-      back-derived `sigma_back_derived` column of `data/literature_reconstruction.csv`
-- [x] a run of `pytest -q` on a clean checkout
 
 ## License
 

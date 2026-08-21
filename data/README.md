@@ -80,6 +80,7 @@ repository, so the column is recovered from the deposited total by
 It is included because it is the input the reconstruction consumes and a reader
 otherwise cannot re-enter the calculation at all; the values it gives,
 0.88-1.92e6 S/m, sit in the same range as the measured conductivities of
-Supplementary Table S7. Replace this column with the reported conductivities
-before release, and the regression test in `tests/test_callaway_reconstruction.py`
-becomes an end-to-end check rather than a consistency one.
+Supplementary Table S7. The column is therefore not independent of the
+reconstruction it feeds: substituting the conductivities as reported in Refs [1]
+and [2] would turn the regression test in `tests/test_callaway_reconstruction.py`
+from a consistency check into an end-to-end one.

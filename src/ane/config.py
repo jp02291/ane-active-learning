@@ -14,10 +14,14 @@ and write the defaults out with
     PipelineConfig().to_yaml("configs/default.yaml")
 
 Values here are the ones reported in the supplementary material. Where the
-released code and the supplementary text disagreed, the supplementary values
-were adopted and are flagged in the field comments; confirm against the run
-logs before publication, since the released configuration must reproduce the
-reported results.
+supplementary text and the surviving notebook disagreed, the supplementary
+values were adopted, and each such field carries a comment saying so. The run
+logs that would settle those cases independently were not archived, so the test
+suite pins both readings instead and neither can drift without a test failing:
+`test_search_bounds_superseding_the_surviving_notebook` covers the DNN search
+bounds, where the two sources differ, and
+`test_gan_config_matches_the_notebook_everywhere` covers the GAN block, where
+they agree.
 """
 
 from __future__ import annotations
