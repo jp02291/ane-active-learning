@@ -1,0 +1,39 @@
+{
+  "release_version": "1.2.0",
+  "verification_date": "2026-08-20",
+  "pytest": {
+    "passed": 190,
+    "failed": 0
+  },
+  "cycle1": {
+    "authoritative_rows": 45,
+    "fixed_train_rows": 36,
+    "fixed_test_rows": 9,
+    "split_overlap": 0,
+    "authoritative_45_sha256": "53CAF4076E15C0C0F9678A9407D764A090656BE7F3B91B6B355B02DA4BBD7154",
+    "enriched_train_36_sha256": "B12E54F6938F5F79ACA18BE4F8447FCE2A901CB72E0E3F65645E1D34595735F9",
+    "enriched_test_9_sha256": "52316FA473BA092AE0DB1DED6B71AB404F2B1C48662EFCAF8C8B26A76C12723F"
+  },
+  "paired_bootstrap": {
+    "root_seed": 42,
+    "replicates": 5000,
+    "paired_result_sha256": "46A629E68A4428C7C8787BEF39A9C4512B5DD49A216A1289DB34005E59374F3B"
+  },
+  "conditional_random_baseline": {
+    "root_seed": 42,
+    "permutations": 200000,
+    "hypervolume_permutations": 20000,
+    "interpretation_sha256": "B186E2D7DAB74FD65297C63FC9A92AD2E345FF06F96A285422A0D12E010C5D66"
+  },
+  "full_wgan_hpo_ensemble_rerun_completed": false,
+  "full_rerun_note": "The package verifies seed propagation, recovered membership, bootstrap, conditional baselines, and deterministic code paths. A complete three-cycle WGAN/HPO/ensemble retraining was not performed for this release.",
+  "fig3d_pca": {
+    "script": "analysis/pca/run_pca.py",
+    "input": "data/candidates.csv",
+    "preprocessing": "StandardScaler (zero mean, unit variance)",
+    "explained_variance_ratio_percent": [
+      31.0,
+      27.3
+    ]
+  }
+}

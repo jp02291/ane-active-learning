@@ -1,0 +1,205 @@
+# Cycle 3 of the closed-loop campaign.
+#
+# DATA CUTOFF
+#   split.up_to_cycle = 3 restricts data/data.csv to the 65 compositions that
+#   existed before cycle 3 began (cycle_added < 3). Without it stage 0 would split
+#   all 70 rows and train cycle 3 on measurements cycle 3 had not yet made.
+#   n_test = 10 reproduces the held-out size reported for this cycle.
+#
+# SELECTED SCENARIO
+#   The internal cross-validation criterion retained augmentation with n = 200 synthetic samples
+#   in this cycle (Supplementary Table S5). The surrogate and selection paths
+#   below therefore point at that scenario, so that stages 3 and 4 build the
+#   ensemble the campaign actually used. Stage 2 still evaluates every scenario
+#   in gan.generated_sizes and writes scenario_summary.csv; a fresh search may
+#   rank them differently, which is why the campaign's choice is pinned here
+#   rather than read back from that file.
+#
+# ARTIFACTS
+#   artifact_root = artifacts/cycle3. Every cycle writes under its own root so that a
+#   later cycle cannot overwrite the generator, the base surrogate or the split
+#   an earlier one was built on.
+#
+# HYPERPARAMETERS (not read by the pipeline -- stage 2 re-derives them with
+# Optuna; recorded so a re-run can be compared against the campaign)
+#   reported:
+#     selected_scenario: augmented (n = 200)
+#     non_generated:
+#       layers: 8
+#       neurons: 57
+#       learning_rate: 1.404e-3
+#       l2: 2.400e-6
+#       dropout: 0.0339
+#       batch_size: 8
+#       w_gen: null  # not applicable to the real-only branch
+#     augmented:
+#       layers: 4
+#       neurons: 28
+#       learning_rate: 2.490e-3
+#       l2: 2.513e-6
+#       dropout: 0.00024
+#       batch_size: 16
+#       w_gen: 0.0936
+#
+# NOT RECOVERED
+#   The exact held-out membership. The original split files were not retained;
+#   stage 0 writes split_manifest.json so that any re-run is at least auditable.
+#
+cycle: 3
+artifact_root: artifacts/cycle3
+split:
+  input_csv: data/data.csv
+  output_dir: data/split/cycle3
+  top_fraction: 0.15
+  n_test: 10
+  n_clusters: 4
+  seed: 42
+  up_to_cycle: 3
+gan:
+  train_csv: data/split/cycle3/train.csv
+  test_csv: data/split/cycle3/test.csv
+  output_dir: artifacts/cycle3
+  output_prefix: artifacts/cycle3/augmented_data_n
+  generated_sizes:
+  - 100
+  - 200
+  - 300
+  - 400
+  - 500
+  latent_dim: 8
+  critic_iterations: 4
+  gradient_penalty_weight: 10.0
+  epochs: 10000
+  batch_size: 16
+  seed: 42
+  learning_rate: 0.0001
+  adam_beta_1: 0.0
+  adam_beta_2: 0.9
+  instance_noise_std: 0.01
+  eval_interval: 100
+  early_stopping_patience: 50
+  improvement_tolerance: 0.0001
+  stoichiometry_min: 2.2
+  stoichiometry_max: 3.8
+  h_mix_max: 0.0
+  mn_max: 0.25
+  co_max: 0.6
+  snap_step: 0.01
+  snap_distance_max: 0.015
+  property_quantile_low: 0.01
+  property_quantile_high: 0.99
+  property_margin: 0.15
+  use_surrogate_filter: true
+  surrogate_model_dir: artifacts/cycle3/dnn_base
+  surrogate_validation_csv: null
+  surrogate_quantile: 0.99
+  surrogate_safety_factor: 2.0
+  surrogate_calibration_fraction: 0.2
+  surrogate_warmup_epoch: 1000
+  proxy_kfold_splits: 5
+  proxy_hidden:
+  - 16
+  - 16
+  proxy_max_iter: 1000
+  fake_pool_min: 100
+  fake_select_k: 20
+  fake_draw_batch: 2000
+  fake_max_rounds: 60
+  kcenter_property_weight: 1.0
+  target_unique_samples: 800
+  final_draw_per_round: 10000
+  final_max_rounds: 100
+  pool_seed: 2027
+  generated_sample_weight: 0.2
+  rare_min_count: 2
+  rare_max_ratio: 0.25
+  weight_boost_max: 5.0
+  weight_cap: 9.0
+surrogate:
+  train_csv: data/split/cycle3/train.csv
+  test_csv: data/split/cycle3/test.csv
+  generated_csv: artifacts/cycle3/augmented_data_n200.csv
+  artifact_dir: artifacts/cycle3/dnn_gan_n200
+  optuna_trials: 100
+  k_folds: 5
+  seed: 42
+  layers_min: 1
+  layers_max: 8
+  neurons_min: 16
+  neurons_max: 256
+  learning_rate_min: 0.0001
+  learning_rate_max: 0.003
+  l2_min: 1.0e-06
+  l2_max: 0.001
+  dropout_min: 0.0
+  dropout_max: 0.2
+  batch_sizes:
+  - 4
+  - 8
+  - 16
+  - 32
+  w_gen_min: 0.01
+  w_gen_max: 0.7
+  w_gen_without_generated: 1.0
+  tune_l2: true
+  l2_fixed: 0.0001
+  epochs_tune: 100
+  epochs_final: 200
+  early_stopping_patience: 10
+  tune_lr_patience: 5
+  final_early_stopping_patience: 80
+  final_lr_patience: 15
+  lr_factor: 0.8
+  lr_min: 1.0e-06
+  ensemble_seed_base: 2025
+  ensemble_size_raw: 60
+  ensemble_size_max_kept: 30
+  ensemble_size_min_kept: 20
+  ensemble_epochs: 300
+  ensemble_val_fraction: 0.2
+  ensemble_early_stopping_patience: 50
+  ensemble_lr_patience: 15
+  ensemble_lr_factor: 0.8
+  prune_mad_factor: 2.5
+  prune_iqr_factor: 1.5
+  prune_targetwise_mae: true
+  prune_kappa_floor: true
+  kappa_member_floor: null
+  kappa_floor_quantile: 0.05
+  kappa_floor_min: 0.5
+  allow_fallback_to_min_models: true
+selection:
+  ensemble_dir: artifacts/cycle3/dnn_gan_n200/ensemble_trained
+  output_dir: artifacts/cycle3/selection
+  output_prefix: pareto_3objective
+  grid_step: 0.01
+  generation_seed: 42
+  limit_per_case: 1000
+  n_group_a:
+  - 1
+  - 2
+  - 3
+  n_group_b:
+  - 1
+  - 2
+  - 3
+  - 4
+  - 5
+  stoichiometry_min: 2.2
+  stoichiometry_max: 3.8
+  h_mix_max: 0.0
+  element_bounds:
+    Co:
+    - 0.0
+    - 0.6
+    Mn:
+    - 0.0
+    - 0.25
+  top_k: 5
+  diversity_distance: 0.1
+  require_positive_s_ane: true
+  require_positive_kappa: true
+  kappa_inverse_mode: add_eps
+  kappa_inverse_epsilon: 1.0e-08
+  predict_batch_size: 8192
+  min_ensemble_models: 20

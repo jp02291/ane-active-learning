@@ -1,0 +1,55 @@
+# Versions of the environment the campaign ran in.
+#
+#     pip install -r requirements-lock.txt
+#
+# The environment is identified rather than inferred. A surviving campaign model
+# file (`final_best_model.h5`, cycle 3, non-generated scenario, saved
+# 2026-07-27) records Keras 3.12.0 in its root attributes, the environment
+# reports the same version, and that model's architecture and hyperparameters
+# match Supplementary Table S5 row by row.
+#
+# Python 3.10, from the cp310 wheel tags of numpy, scipy and scikit-learn.
+#
+# These are the direct dependencies of the pipeline. They were read with
+# `pip list --format=freeze` inside the campaign environment: a plain
+# `pip freeze` there reports conda-installed packages as local build paths
+# rather than versions.
+
+
+# --- Model stack -------------------------------------------------------------
+tensorflow==2.20.0
+keras==3.12.0
+optuna==4.7.0
+
+# --- Numerics ----------------------------------------------------------------
+# scikit-learn draws the train-test partition -- KMeans clustering followed by
+# stratified sampling, in `ane.data` -- so its version decides which
+# compositions land on which side of the split. The original split files were
+# not retained, which makes this pin the closest thing to a record of them.
+numpy==1.26.4
+scipy==1.15.2
+scikit-learn==1.7.2
+
+# --- Data handling and I/O ---------------------------------------------------
+pandas==2.3.3
+joblib==1.5.2
+pyyaml==6.0.3
+h5py==3.15.1
+
+
+# --- Numerical determinism ---------------------------------------------------
+# TensorFlow enables oneDNN custom operations by default, and says so at import:
+#
+#     oneDNN custom operations are on. You may see slightly different numerical
+#     results due to floating-point round-off errors from different computation
+#     orders.
+#
+# The campaign ran with that default, so the reported numbers carry whatever
+# operation ordering this machine's oneDNN chose. Pinning the versions above
+# does not remove that; only the same hardware and the same default does. A
+# re-run that wants ordering-independent arithmetic, at some cost in speed, can
+# set
+#
+#     TF_ENABLE_ONEDNN_OPTS=0
+#
+# but it is then not reproducing the campaign's arithmetic either.
