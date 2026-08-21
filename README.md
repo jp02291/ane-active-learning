@@ -30,14 +30,14 @@ required.
 Verify the installation:
 
 ```bash
-pytest -q          # 190 passed
+pytest -q          # 197 passed
 ```
 
 What that checks, and what it does not. The suite is a regression test on the
 deterministic parts: featurization, the physics filters, generated-sample
 filtering and k-center selection, ensemble pruning, Pareto ranking, the
-scenario-ranking criterion, the per-cycle data cutoffs, and the Fig. 3(d)
-projection. Network training
+scenario-ranking criterion, the per-cycle data cutoffs, the Fig. 3(d)
+projection, and the Fig. 5(d) disorder parameters. Network training
 itself is not covered -- no TensorFlow model is fitted anywhere in the suite --
 so a green run means the surrounding logic is unchanged, not that the published
 results have been reproduced.
@@ -340,15 +340,14 @@ journal record once it appears.
 - [ ] author ORCIDs in `CITATION.cff`, if the authors have them
 - [x] the augmentation size selected in each cycle -- n = 200 in cycles 1 and 3,
       no augmentation in cycle 2 -- now pinned in `configs/cycle{1,2,3}.yaml`
-- [ ] numerical source data for the main and supplementary figures -- the XRD
-      and transport values behind Fig. 5 are not in `data/`
+- [x] numerical source data for Fig. 5, now in `data/fig5_source_data.csv`
 - [ ] whatever survives of the campaign's own outputs, under `reported_runs/cycleN/`
       -- `split_manifest.json`, `best_params.json`, `scenario_summary.csv`. These
       are what would let a reader check the reported numbers rather than merely
       re-run the workflow; deposit whatever exists, even if incomplete
 - [ ] the electrical conductivities reported by Refs [1] and [2], replacing the
       back-derived `sigma_back_derived` column of `data/literature_reconstruction.csv`
-- [ ] a run of `pytest -q` on a clean checkout
+- [x] a run of `pytest -q` on a clean checkout
 
 ## License
 

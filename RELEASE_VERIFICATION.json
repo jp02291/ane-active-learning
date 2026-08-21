@@ -2,7 +2,7 @@
   "release_version": "1.2.0",
   "verification_date": "2026-08-20",
   "pytest": {
-    "passed": 190,
+    "passed": 197,
     "failed": 0
   },
   "cycle1": {
@@ -35,5 +35,12 @@
       31.0,
       27.3
     ]
+  },
+  "fig5_disorder": {
+    "script": "analysis/fig5/compute_disorder.py",
+    "source_data": "data/fig5_source_data.csv",
+    "elemental_data": "Supplementary Table S8(a)",
+    "mass_weight_inside_site": false,
+    "mass_weight_on_site_combination": false
   }
 }

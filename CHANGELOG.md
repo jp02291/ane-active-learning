@@ -11,8 +11,18 @@
   instead of the reported split.
 - Added `tests/test_pca_reproduction.py`, which pins the published variance
   percentages, checks that every nominated composition lies on the 0.01
-  enumeration grid, and fails if standardization stops mattering. The complete
-  suite contains 190 tests.
+  enumeration grid, and fails if standardization stops mattering.
+- Added `analysis/fig5/`, which computes the site-resolved disorder parameters
+  of Fig. 5(d) and Supplementary Fig. S4 and writes `data/fig5_source_data.csv`.
+  This calculation was also previously outside the repository.
+- Recorded the two conventions that calculation depends on: the site sums carry
+  no (M_i/M_s)^2 weight, and the elemental data are those of Supplementary
+  Table S8(a) rather than the Callaway-Klemens set of Table S8(b). Swapping the
+  radius table moves Gamma_V by an order of magnitude.
+- Added `data/fig5_source_data.csv`, the numerical source data behind all four
+  Fig. 5 panels, including the (220) FWHM values behind Fig. 5(c).
+- Added `tests/test_disorder_reproduction.py`. The complete suite contains
+  197 tests.
 
 ## 1.1.0 - 2026-08-14
 
