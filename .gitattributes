@@ -1,0 +1,10 @@
+# This deposit is verified by SHA-256, so git must hand back the same bytes it
+# was given on every platform. `-text` disables end-of-line conversion; without
+# it a clone on Windows rewrites line endings and every text entry in
+# SHA256_MANIFEST.csv fails to verify. Diffs are unaffected: git still detects
+# text on its own for that.
+#
+# The tree is deliberately mixed. Source and documentation are LF; the CSV and
+# JSON files are written by pandas and json on Windows and carry CRLF. Both are
+# hashed as they are.
+* -text
