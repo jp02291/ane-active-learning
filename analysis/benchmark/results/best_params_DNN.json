@@ -1,0 +1,11 @@
+{
+  "best_cv_scaled_mse": 0.0470983370517691,
+  "best_params": {
+    "num_layers": 5,
+    "num_neurons": 90,
+    "learning_rate": 0.0026042476609650293,
+    "l2": 3.570479010588492e-05,
+    "dropout": 0.07447426318831953,
+    "batch_size": 16
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "release_version": "1.2.3",
+  "verification_date": "2026-08-25",
+  "pytest": {
+    "passed": 222,
+    "skipped": 1,
+    "failed": 0,
+    "note": "one test is skipped where xgboost is not installed"
+  },
+  "cycle1": {
+    "authoritative_rows": 45,
+    "fixed_train_rows": 36,
+    "fixed_test_rows": 9,
+    "split_overlap": 0,
+    "authoritative_45_sha256": "53CAF4076E15C0C0F9678A9407D764A090656BE7F3B91B6B355B02DA4BBD7154",
+    "enriched_train_36_sha256": "B12E54F6938F5F79ACA18BE4F8447FCE2A901CB72E0E3F65645E1D34595735F9",
+    "enriched_test_9_sha256": "52316FA473BA092AE0DB1DED6B71AB404F2B1C48662EFCAF8C8B26A76C12723F"
+  },
+  "paired_bootstrap": {
+    "root_seed": 42,
+    "replicates": 5000,
+    "paired_result_sha256": "46A629E68A4428C7C8787BEF39A9C4512B5DD49A216A1289DB34005E59374F3B"
+  },
+  "conditional_random_baseline": {
+    "root_seed": 42,
+    "permutations": 200000,
+    "hypervolume_permutations": 20000,
+    "interpretation_sha256": "B186E2D7DAB74FD65297C63FC9A92AD2E345FF06F96A285422A0D12E010C5D66"
+  },
+  "full_wgan_hpo_ensemble_rerun_completed": false,
+  "full_rerun_note": "The package verifies seed propagation, recovered membership, bootstrap, conditional baselines, and deterministic code paths. A complete three-cycle WGAN/HPO/ensemble retraining was not performed for this release.",
+  "fig3d_pca": {
+    "script": "analysis/pca/run_pca.py",
+    "input": "data/candidates.csv",
+    "preprocessing": "StandardScaler (zero mean, unit variance)",
+    "explained_variance_ratio_percent": [
+      31.0,
+      27.3
+    ]
+  },
+  "fig5_disorder": {
+    "script": "analysis/fig5/compute_disorder.py",
+    "source_data": "data/fig5_source_data.csv",
+    "elemental_data": "Supplementary Table S8(a)",
+    "mass_weight_inside_site": false,
+    "mass_weight_on_site_combination": false
+  },
+  "callaway_convention": {
+    "default_umklapp_sign": -1,
+    "default_gamma": 3.1192,
+    "legacy_umklapp_sign": 1,
+    "legacy_gamma": 2.0,
+    "note": "both parameterisations give identical kappa_L at 300 K; defaults match Supplementary Table S6. The implementation uses the single-lattice Klemens fluctuation form.",
+    "fluctuation_form": "single-lattice Klemens: Gamma = sum_i c_i (1 - P_i/P_bar)^2",
+    "per_element_mass_weight": false,
+    "epsilon": 0.71
+  },
+  "literature_reconstruction": {
+    "entries": 13,
+    "deposited_columns": [
+      "kappa_L",
+      "kappa_total"
+    ],
+    "kappa_L_regenerated_by": "ane.physics.kappa_lattice with CallawayParams defaults",
+    "training_label_consistency_verified": true
+  },
+  "acquisition_benchmark": {
+    "script": "analysis/acquisition/run_benchmark.py",
+    "input": "data/data.csv",
+    "features": "ane.features.featurize (Supplementary Table S8(a))",
+    "rng_base": 20250101,
+    "repetitions": 50,
+    "configurations": [
+      "batch1",
+      "robust",
+      "measured_only"
+    ],
+    "median_acquisitions_to_pool_optimum": {
+      "batch1": {
+        "gp_pareto_unc": 2,
+        "gp_ratio_ucb": 15,
+        "gp_ehvi": 15,
+        "random": 8.5
+      },
+      "robust": {
+        "gp_pareto_unc": 10,
+        "gp_ratio_ucb": 20,
+        "gp_ehvi": 25,
+        "random": 15
+      },
+      "measured_only": {
+        "gp_pareto_unc": 4,
+        "gp_ratio_ucb": 9,
+        "gp_ehvi": 10,
+        "random": 8.5
+      }
+    }
+  },
+  "surrogate_benchmark": {
+    "script": "analysis/benchmark/run_benchmark.py",
+    "inputs": [
+      "data/split/cycle1/train.csv",
+      "data/split/cycle1/test.csv"
+    ],
+    "features": "ane.features.featurize (Supplementary Table S8(a))",
+    "models": [
+      "DNN",
+      "KRR",
+      "SVR",
+      "XGB",
+      "GPR"
+    ],
+    "cross_validation": "RepeatedKFold, 3 folds x 3 repeats, shared across models",
+    "optuna_trials_per_model": 150,
+    "seed": 42,
+    "cv_mae_mean": {
+      "kxx": {
+        "DNN": 2.371,
+        "KRR": 2.671,
+        "SVR": 2.198,
+        "XGB": 2.243,
+        "GPR": 2.566
+      },
+      "S_ANE": {
+        "DNN": 0.836,
+        "KRR": 0.746,
+        "SVR": 0.657,
+        "XGB": 0.811,
+        "GPR": 0.691
+      }
+    },
+    "held_out_mae": {
+      "kxx": {
+        "DNN": 3.069,
+        "KRR": 2.26,
+        "SVR": 2.54,
+        "XGB": 2.953,
+        "GPR": 2.183
+      },
+      "S_ANE": {
+        "DNN": 0.478,
+        "KRR": 0.436,
+        "SVR": 0.419,
+        "XGB": 0.628,
+        "GPR": 0.552
+      }
+    }
+  }
+}

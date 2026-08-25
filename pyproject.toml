@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ane-active-learning"
+version = "1.2.3"   # adds the Fig. S5 and Fig. S6 comparisons
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scipy>=1.10",
+    "scikit-learn>=1.3",
+    "joblib>=1.3",
+    "pyyaml>=6.0",
+    # The generator, the surrogate and the ensemble are all Keras models, and
+    # stage 2 is an Optuna study. `pip install -e .` has to be enough to run
+    # the pipeline the README describes, so neither is optional.
+    "tensorflow>=2.13",
+    "optuna>=3.4",
+    # analysis/benchmark compares the DNN against four alternatives, one of
+    # which is gradient boosting. Only that module needs it, but a reader
+    # checking Supplementary Note S2 needs it installed.
+    "xgboost>=2.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7.4"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

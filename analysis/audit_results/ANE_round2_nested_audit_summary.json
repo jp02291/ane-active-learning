@@ -1,0 +1,61 @@
+{
+  "root_seeds": [
+    42,
+    2025,
+    314159
+  ],
+  "official_root_seeds": [
+    42,
+    2025,
+    314159
+  ],
+  "expected_seed_folds": 15,
+  "completed_seed_folds": 15,
+  "paired_seed_folds": 14,
+  "missing_or_incomplete_seed_folds": [],
+  "generation_or_augmented_failures": 1,
+  "paired_mean_delta_scaled_mse_aug_minus_real": 0.004564494905958012,
+  "paired_median_delta_scaled_mse_aug_minus_real": 0.003361693269151946,
+  "cluster_bootstrap_95pct_CI_for_mean_delta": [
+    -0.009037563336603927,
+    0.01758102094058402
+  ],
+  "cluster_bootstrap_unit": "root-seed mean (3 seed clusters; descriptive because n_clusters=3)",
+  "augmented_better_paired_folds": 4,
+  "real_only_better_paired_folds": 10,
+  "mean_metrics_by_branch_paired_folds_only": {
+    "augmented": {
+      "scaled_mse_mean": 0.05711894846317798,
+      "scaled_mae_mean": 0.14876684331057108,
+      "mae_kxx": 2.810056514670525,
+      "mae_S_ANE": 0.8105334600464665
+    },
+    "real_only": {
+      "scaled_mse_mean": 0.05255445355721996,
+      "scaled_mae_mean": 0.13777582048966228,
+      "mae_kxx": 2.5803597981101616,
+      "mae_S_ANE": 0.740765253410242
+    }
+  },
+  "mean_metrics_by_branch_all_available_warning_unpaired": {
+    "augmented": {
+      "scaled_mse_mean": 0.05711894846317798,
+      "scaled_mae_mean": 0.14876684331057108,
+      "mae_kxx": 2.810056514670525,
+      "mae_S_ANE": 0.8105334600464665
+    },
+    "real_only": {
+      "scaled_mse_mean": 0.0498116416196622,
+      "scaled_mae_mean": 0.1348491708414577,
+      "mae_kxx": 2.5325917783170424,
+      "mae_S_ANE": 0.7324646624544234
+    }
+  },
+  "root_seed_mean_deltas": {
+    "42": -0.009037563336603927,
+    "2025": 0.0024296154653815584,
+    "314159": 0.01758102094058402
+  },
+  "decision_rule": "augmentation is robust only if failures are rare and seed-level mean paired deltas consistently favor augmentation",
+  "scope": "outer-nested performance audit with fold-local generation and branch-specific HPO inside outer training; synthetic pool shared across inner HPO folds"
+}

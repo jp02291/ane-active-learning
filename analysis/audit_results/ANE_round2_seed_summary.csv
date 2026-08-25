@@ -1,0 +1,4 @@
+﻿root_seed,paired_folds,generation_failures,mean_delta_scaled_mse_aug_minus_real,median_delta_scaled_mse_aug_minus_real,augmented_better_folds,real_only_better_folds
+42,4,1,-0.009037563336603927,-0.0014171405941672058,2,2
+2025,5,0,0.0024296154653815584,0.0019672568705935995,2,3
+314159,5,0,0.01758102094058402,0.005113629187058998,0,5

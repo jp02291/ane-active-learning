@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite both the software and the paper."
+title: "Code and data for: Discovery of High-Sensitivity Heat-Flux Sensor Materials via Active Learning"
+abstract: >-
+  Code and data accompanying the manuscript "Discovery of High-Sensitivity Heat-Flux Sensor Materials via Active Learning". Searches an
+  eight-element alloy space for compositions maximizing the material-level
+  heat-flux sensitivity |S_ANE| / kappa, through cycles of generative
+  augmentation, surrogate training, Pareto-based candidate selection and
+  synthesis. Includes the dataset as it stood at each of the three campaign
+  cycles and the configurations that record what each cycle was run with.
+authors:
+  - family-names: Park
+    given-names: Jinho
+    affiliation: "Department of Mechanical Engineering, Pohang University of Science and Technology (POSTECH)"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"  # add if available
+  - family-names: Jang
+    given-names: Byungkwan
+    affiliation: "Satellite & Space Exploration Mechanical Team, Korea Aerospace Research Institute (KARI)"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"  # add if available
+  - family-names: Yu
+    given-names: Hyun
+    affiliation: "Department of Mechanical Engineering, Pohang University of Science and Technology (POSTECH)"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"  # add if available
+  - family-names: Jin
+    given-names: Hyungyu
+    affiliation: "Department of Mechanical Engineering, Pohang University of Science and Technology (POSTECH)"
+    email: hgjin@postech.ac.kr
+    # orcid: "https://orcid.org/0000-0000-0000-0000"  # add if available
+version: 1.2.3
+license: MIT
+date-released: "2026-08-25"
+doi: "10.5281/zenodo.21913047"
+keywords:
+  - active learning
+  - anomalous Nernst effect
+  - materials discovery
+  - generative augmentation

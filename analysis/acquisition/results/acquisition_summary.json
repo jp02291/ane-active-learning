@@ -1,0 +1,119 @@
+{
+  "input": "data/data.csv",
+  "input_sha256": "94e14db34940f1c74967c2c6d7a5627f1f510baa57b63b2b498750f9fd81c987",
+  "features": "ane.features.featurize (Supplementary Table S8(a))",
+  "rng_base": 20250101,
+  "configurations": {
+    "batch1": {
+      "pool": "all",
+      "cycle0_subsample": 1.0,
+      "batch": 1,
+      "cycles": 25,
+      "seeds": 50,
+      "note": "Supplementary Fig. S5(a): unit batch size from the full initial dataset",
+      "output": "benchmark_batch1.csv",
+      "output_sha256": "0c76e4ba3b7733e9e25636f8739daf5cad7283eecaf84c1199339a182a3c89fe",
+      "pool_optimum": 0.3591703782490195,
+      "experiments_to_optimum": {
+        "random": {
+          "median": 8.5,
+          "mean": 10.76,
+          "reached": 50,
+          "repetitions": 50
+        },
+        "gp_ehvi": {
+          "median": 15.0,
+          "mean": 15.66,
+          "reached": 50,
+          "repetitions": 50
+        },
+        "gp_ratio_ucb": {
+          "median": 15.0,
+          "mean": 15.0,
+          "reached": 50,
+          "repetitions": 50
+        },
+        "gp_pareto_unc": {
+          "median": 2.0,
+          "mean": 2.0,
+          "reached": 50,
+          "repetitions": 50
+        }
+      }
+    },
+    "robust": {
+      "pool": "all",
+      "cycle0_subsample": 0.8,
+      "batch": 5,
+      "cycles": 5,
+      "seeds": 50,
+      "note": "Supplementary Fig. S5(b, c): randomized starting data",
+      "output": "benchmark_robust.csv",
+      "output_sha256": "409241d7de02f15014c148ef5cbd94df734e66c1715573bd5661be278aa03b1d",
+      "pool_optimum": 0.3591703782490195,
+      "experiments_to_optimum": {
+        "random": {
+          "median": 15.0,
+          "mean": 14.714285714285714,
+          "reached": 35,
+          "repetitions": 50
+        },
+        "gp_ehvi": {
+          "median": 25.0,
+          "mean": 23.666666666666668,
+          "reached": 30,
+          "repetitions": 50
+        },
+        "gp_ratio_ucb": {
+          "median": 20.0,
+          "mean": 20.0,
+          "reached": 43,
+          "repetitions": 50
+        },
+        "gp_pareto_unc": {
+          "median": 10.0,
+          "mean": 10.9,
+          "reached": 50,
+          "repetitions": 50
+        }
+      }
+    },
+    "measured_only": {
+      "pool": "measured",
+      "cycle0_subsample": 1.0,
+      "batch": 1,
+      "cycles": 25,
+      "seeds": 50,
+      "note": "Supplementary Note S1: the same comparison with the 13 reconstructed literature entries removed from the training set",
+      "output": "benchmark_measured_only.csv",
+      "output_sha256": "aef4231c97c5b7e2e2dc3d2971bf9cb638a63e0b78944677cdb720bb28e13877",
+      "pool_optimum": 0.3591703782490195,
+      "experiments_to_optimum": {
+        "random": {
+          "median": 8.5,
+          "mean": 10.76,
+          "reached": 50,
+          "repetitions": 50
+        },
+        "gp_ehvi": {
+          "median": 10.0,
+          "mean": 10.4,
+          "reached": 50,
+          "repetitions": 50
+        },
+        "gp_ratio_ucb": {
+          "median": 9.0,
+          "mean": 9.0,
+          "reached": 50,
+          "repetitions": 50
+        },
+        "gp_pareto_unc": {
+          "median": 4.0,
+          "mean": 4.0,
+          "reached": 50,
+          "repetitions": 50
+        }
+      }
+    }
+  }
+}

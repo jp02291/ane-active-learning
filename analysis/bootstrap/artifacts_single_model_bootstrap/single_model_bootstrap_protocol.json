@@ -1,0 +1,20 @@
+{
+  "estimator": "original final single DNN model",
+  "point_estimate": "MAE calculated from each already-selected model folder's saved test_predictions.csv; final_best_model.h5 is used only when the prediction file is absent.",
+  "individual_error_bar": "Percentile bootstrap interval of the single-model test MAE obtained by resampling held-out test samples.",
+  "paired_comparison": "Paired percentile bootstrap interval of Delta MAE = MAE_augmented - MAE_real-only, using identical resampled test indices for both branches.",
+  "bootstrap_iterations": 5000,
+  "bootstrap_confidence": 0.95,
+  "bootstrap_seed": 42,
+  "take_abs_s_ane": false,
+  "selected_branch": {
+    "1": "augmented",
+    "2": "real-only",
+    "3": "augmented"
+  },
+  "summary_csv": "C:\\Users\\jp02291\\Documents\\Codex\\2026-08-13\\referenced-chatgpt-conversation-this-is-an\\work\\latest_review_260814\\code_updated\\ane-active-learning\\analysis\\bootstrap\\artifacts_single_model_bootstrap\\single_model_mae_bootstrap_summary.csv",
+  "paired_csv": "C:\\Users\\jp02291\\Documents\\Codex\\2026-08-13\\referenced-chatgpt-conversation-this-is-an\\work\\latest_review_260814\\code_updated\\ane-active-learning\\analysis\\bootstrap\\artifacts_single_model_bootstrap\\single_model_paired_delta_mae_bootstrap.csv",
+  "artifact_map_csv": "C:\\Users\\jp02291\\Documents\\Codex\\2026-08-13\\referenced-chatgpt-conversation-this-is-an\\work\\latest_review_260814\\code_updated\\ane-active-learning\\analysis\\bootstrap\\artifacts_single_model_bootstrap\\single_model_artifact_map.csv",
+  "figure_png": "C:\\Users\\jp02291\\Documents\\Codex\\2026-08-13\\referenced-chatgpt-conversation-this-is-an\\work\\latest_review_260814\\code_updated\\ane-active-learning\\analysis\\bootstrap\\artifacts_single_model_bootstrap\\fig2_single_model_mae_bootstrap_ci.png",
+  "figure_pdf": "C:\\Users\\jp02291\\Documents\\Codex\\2026-08-13\\referenced-chatgpt-conversation-this-is-an\\work\\latest_review_260814\\code_updated\\ane-active-learning\\analysis\\bootstrap\\artifacts_single_model_bootstrap\\fig2_single_model_mae_bootstrap_ci.pdf"
+}

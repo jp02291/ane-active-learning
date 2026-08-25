@@ -1,0 +1,10 @@
+{
+  "best_cv_scaled_mse": 0.055662241190391995,
+  "best_params": {
+    "kernel_type": "Matern32",
+    "constant_value": 0.6657213934021959,
+    "length_scale": 3.986695950688671,
+    "noise_level": 0.0207485589889471,
+    "alpha": 7.429350504503278e-10
+  }
+}
