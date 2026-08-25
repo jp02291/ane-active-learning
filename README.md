@@ -348,7 +348,7 @@ This deposit is archived at [10.5281/zenodo.21913047](https://doi.org/10.5281/ze
 ```bibtex
 @software{ane_active_learning,
   title  = {Code and data for: Discovery of High-Sensitivity Heat-Flux Sensor Materials via Active Learning},
-  author = {Park, Jinho and Jang, Byungkwan and Yu, Hyun and Jin, Hyungyu},
+  author = {Park, Jinho and Jang, Byungkwan},
   year   = {2026},
   doi    = {10.5281/zenodo.21913047},
   url    = {https://doi.org/10.5281/zenodo.21913047}
