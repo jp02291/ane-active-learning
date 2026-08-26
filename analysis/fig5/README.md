@@ -40,7 +40,7 @@ normalization, and in the radius set below, so they are reported on their own
 scales and are not compared numerically.
 
 The radii and masses are those of **Supplementary Table S8(a)**, the descriptor
-set — not the Callaway-Klemens set of Table S8(b). This matters more than it
+set -- not the Callaway-Klemens set of Table S8(b). This matters more than it
 looks: Ga and Al are nearly the same size in S8(a) (1.408 and 1.429 A) and
 differ markedly in S8(b) (1.53 and 1.43 A), which moves Gamma_V by an order of
 magnitude and shifts where it peaks.

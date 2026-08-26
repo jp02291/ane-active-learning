@@ -68,7 +68,7 @@ see `ane.data` for what it does and why.
 ## `literature_reconstruction.csv`
 
 The 13 literature entries of the initial dataset, whose thermal conductivity was
-not reported and was reconstructed with the Callaway–Klemens model of
+not reported and was reconstructed with the Callaway-Klemens model of
 Supplementary Note S1. One row per entry: composition, reference, the reported
 anomalous Nernst coefficient, the lattice term, and the total.
 

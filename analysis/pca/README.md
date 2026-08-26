@@ -17,8 +17,8 @@ Two conventions decide what the figure shows.
 The analysis runs on the eight **nominal** atomic fractions rather than on the
 ILR coordinates used as surrogate inputs, so that the loading directions read
 directly as element contents. The fractions are then **standardized to zero mean
-and unit variance**. Mean-centering alone gives a different projection — Fe and
-Ga carry the largest raw spread and would dominate — so the reported variance
+and unit variance**. Mean-centering alone gives a different projection -- Fe and
+Ga carry the largest raw spread and would dominate -- so the reported variance
 split is specific to the standardized run. `tests/test_pca_reproduction.py` pins
 both the published percentages and the fact that the two preprocessing choices
 disagree.

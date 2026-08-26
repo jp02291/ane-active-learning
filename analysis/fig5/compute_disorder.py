@@ -41,7 +41,6 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
-import os
 import sys
 from pathlib import Path
 

@@ -41,9 +41,17 @@
 #       batch_size: 16
 #       w_gen: 0.0936
 #
-# NOT RECOVERED
-#   The exact held-out membership. The original split files were not retained;
-#   stage 0 writes split_manifest.json so that any re-run is at least auditable.
+# RECOVERED MEMBERSHIP
+#   The original split files were not retained, but the held-out membership was
+#   recovered from the deposited Fig. 2 prediction record: its y_true values are
+#   the measured properties of the held-out rows, and the (kappa, |S_ANE|) pairs
+#   are unique across data/data.csv, so each row identifies one composition. The
+#   recovered membership is pinned below through fixed_train_csv/fixed_test_csv,
+#   as cycle 1 already does, so stage 0 validates and copies it instead of
+#   drawing a new one. That matters: a fresh draw on the same pool with the
+#   same seed does not reproduce the campaign's split, because the campaign ran
+#   from the original notebooks. See
+#   data/reported_splits/cycle3/recovery_manifest.json.
 #
 cycle: 3
 artifact_root: artifacts/cycle3
@@ -52,8 +60,9 @@ split:
   output_dir: data/split/cycle3
   top_fraction: 0.15
   n_test: 10
-  n_clusters: 4
   seed: 42
+  fixed_train_csv: data/reported_splits/cycle3/train.csv
+  fixed_test_csv: data/reported_splits/cycle3/test.csv
   up_to_cycle: 3
 gan:
   train_csv: data/split/cycle3/train.csv

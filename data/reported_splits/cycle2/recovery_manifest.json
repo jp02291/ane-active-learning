@@ -1,0 +1,32 @@
+{
+  "split_source": "recovered_from_historical_test_predictions",
+  "cycle": 2,
+  "original_split_csv_retained": false,
+  "historical_prediction_files_retained": true,
+  "method": "the held-out rows of the deposited Fig. 2 prediction record were matched back to data/data.csv on (kxx, |S_ANE|)",
+  "matching_variables": [
+    "kxx",
+    "S_ANE"
+  ],
+  "cycle_eligible_rows": 55,
+  "train_rows": 45,
+  "test_rows": 10,
+  "all_matches_unique": true,
+  "worst_relative_distance_to_the_match": 8.384e-08,
+  "smallest_separation_from_the_runner_up": 0.02289,
+  "checks": [
+    "every recovered composition was measured before cycle 2 began (cycle_added < 2)",
+    "no recovered composition falls in the top 15 percent by |S_ANE|/kappa",
+    "both branch prediction files agree on the held-out values and their order"
+  ],
+  "not_recovered": [
+    "best_params.json",
+    "scenario_summary.csv",
+    "per-cycle cross-validation traces",
+    "the generated CSVs of this cycle"
+  ],
+  "source_file_sha256": {
+    "analysis/bootstrap/cycle2/artifacts_dnn_base/test_predictions.csv": "5a5c17bf62a834a3a6e3d3261b880af7d8cca53d2d26f8de47519e34b4d19f9b",
+    "analysis/bootstrap/cycle2/artifacts_dnn_augmented/test_predictions.csv": "5634b99e3aab95b60538bf8fedc798ee1278409beaacb6e172fe3eb4efda47dc"
+  }
+}

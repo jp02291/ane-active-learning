@@ -24,7 +24,8 @@ targets and a deep ensemble whose spread becomes the disagreement score U.
 Two caveats belong with the table. The DNN entries come from a single seeded
 model rather than the pruned ensemble, so they carry more run-to-run variation
 than the other four. And the held-out compositions were used to select the
-partition itself (Algorithm S1 stratifies on the targets), so these errors
+partition itself (Algorithm S1 retains the top 15% by figure of merit in
+training), so these errors
 describe the bulk of the composition space rather than the high-performance
 region.
 
@@ -42,13 +43,12 @@ from __future__ import annotations
 
 import argparse
 import gc
-import hashlib
-import math
 import json
+import math
 import os
 import random
-import time
 import sys
+import time
 import warnings
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -68,10 +68,13 @@ tf.keras.utils.set_random_seed(SEED)
 np.random.seed(SEED)
 random.seed(SEED)
 
+# Available from TF 2.9, and only before any op has run. Those two failures are
+# expected; anything else is not, and losing determinism silently would make the
+# DNN entries below irreproducible without saying so.
 try:
     tf.config.experimental.enable_op_determinism()
-except Exception:
-    pass
+except (AttributeError, RuntimeError) as exc:  # pragma: no cover - platform dependent
+    print(f"[warn] deterministic ops not enabled: {exc}", file=sys.stderr)
 
 from tensorflow.keras import Sequential, regularizers
 from tensorflow.keras.layers import Dense, Dropout

@@ -5,7 +5,6 @@ split:
   output_dir: data/split
   top_fraction: 0.15
   n_test: 10
-  n_clusters: 4
   seed: 42
   fixed_train_csv: null
   fixed_test_csv: null

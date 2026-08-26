@@ -53,7 +53,6 @@ split:
   output_dir: data/split/cycle1
   top_fraction: 0.15
   n_test: 9
-  n_clusters: 4
   seed: 42
   fixed_train_csv: data/reported_splits/cycle1/train.csv
   fixed_test_csv: data/reported_splits/cycle1/test.csv
