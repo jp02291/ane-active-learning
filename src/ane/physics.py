@@ -165,12 +165,8 @@ def _fluctuation_parameters(comp: np.ndarray) -> tuple[float, float]:
     is no per-element (M_i / M_bar)^2 factor. The mass-ratio weight that does
     appear in the multi-sublattice treatment of Abeles is a per-sublattice
     factor (M_bar_s / M_bar)^2, a different quantity that does not apply to the
-    single-lattice reconstruction used for the literature entries.
-
-    Earlier releases up to v1.2.1 carried a per-element (M_i / M_bar)^2 weight
-    here. It did not reproduce the archived kappa_L of the campaign; the form
-    below does, to within 2.3 percent. See `data/literature_reconstruction.csv`
-    and the note in README.
+    single-lattice reconstruction used for the literature entries. See
+    `data/literature_reconstruction.csv` and the note in README.
     """
     comp = np.asarray(comp, dtype=np.float64)
     m_bar = float(comp @ CALLAWAY_MASS)

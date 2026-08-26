@@ -29,7 +29,7 @@ running the full 0.005 grid would take minutes and prove nothing further.
 from __future__ import annotations
 
 from itertools import combinations
-from typing import Iterable, List, Optional, Tuple
+from typing import List
 
 import numpy as np
 import pandas as pd

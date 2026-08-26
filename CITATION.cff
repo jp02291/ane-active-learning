@@ -12,16 +12,17 @@ authors:
   - family-names: Park
     given-names: Jinho
     affiliation: "Department of Mechanical Engineering, Pohang University of Science and Technology (POSTECH)"
-
   - family-names: Jang
     given-names: Byungkwan
     affiliation: "Satellite & Space Exploration Mechanical Team, Korea Aerospace Research Institute (KARI)"
 
+# The deposit lists the two authors who wrote the code. The article it
+# accompanies has four; see the paper for the full author list.
 contact:
   - family-names: Jin
     given-names: Hyungyu
-    email: hgjin@postech.ac.kr
     affiliation: "Department of Mechanical Engineering, Pohang University of Science and Technology (POSTECH)"
+    email: hgjin@postech.ac.kr
 
 version: 1.2.3
 license: MIT

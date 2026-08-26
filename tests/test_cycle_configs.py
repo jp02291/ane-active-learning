@@ -52,9 +52,11 @@ def test_split_sizes_match_the_manuscript(cycle: int, tmp_path: Path) -> None:
 
     manifest = json.loads((tmp_path / "split_manifest.json").read_text())
     assert manifest["up_to_cycle"] == cycle
-    assert manifest["split_source"] == (
-        "fixed_reported_membership" if cycle == 1 else "reconstructed"
-    )
+    # All three memberships are pinned. Cycle 1's was retained; cycles 2 and 3
+    # were recovered from the Fig. 2 prediction records and pinned so that
+    # stage 0 copies them rather than drawing a partition that would not be the
+    # one behind the reported numbers. See tests/test_recovered_splits.py.
+    assert manifest["split_source"] == "fixed_reported_membership"
     assert len(manifest["train"]) == n_train
     assert len(manifest["test"]) == n_test
     assert not set(manifest["train"]) & set(manifest["test"])

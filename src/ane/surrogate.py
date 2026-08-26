@@ -956,10 +956,12 @@ def cv_objective_loss(
 
     The per-fold score is the minimum validation loss reached, not the last:
     early stopping restores the best weights, so the minimum is the loss of the
-    model that would actually be kept. Folds that produce no finite loss are
-    skipped rather than counted as failures, and a parameter set where every
-    fold fails scores infinity so that Optuna abandons that region.
+    model that would actually be kept. A parameter set scores infinity as soon
+    as any fold fails to produce a finite loss: averaging the folds that
+    survived would score it on fewer than `k_folds`, which is not the objective
+    Algorithm S3 defines. Optuna then abandons that region.
     """
+    import tensorflow as tf
     from sklearn.model_selection import KFold
     from tensorflow.keras import backend as K
     from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
@@ -972,6 +974,14 @@ def cv_objective_loss(
             X_comp, y, train_idx, val_idx, X_gen_comp, y_gen, params.get("w_gen", 1.0)
         )
 
+        # Seeding the sampler and the fold split is not enough: weight
+        # initialization, dropout and batch order also decide the score, and
+        # without this the same parameter set scores differently on every run,
+        # so the search itself is not reproducible. The seed is the same for
+        # every trial on purpose -- Optuna is comparing parameter sets, and a
+        # trial-dependent seed would put initialization noise into that
+        # comparison.
+        tf.keras.utils.set_random_seed(cfg.seed)
         model, batch_size = build_model(X_tr.shape[1], params, n_targets=y.shape[1])
         history = model.fit(
             X_tr,
@@ -1215,6 +1225,7 @@ def train_final_model(
     less data than the campaign had. The evaluation that follows is the only
     read of `test.csv` in the whole pipeline.
     """
+    import tensorflow as tf
     from tensorflow.keras import backend as K
 
     K.clear_session()
@@ -1239,6 +1250,10 @@ def train_final_model(
         X_train = np.vstack([X_train, X_gen])
         y_train = np.vstack([y_train, sy.transform(y_gen)])
 
+    # The model this produces is the one whose test metrics are reported, so it
+    # is seeded like the folds above rather than left to whatever state the
+    # epoch-selection loop happened to end in.
+    tf.keras.utils.set_random_seed(cfg.seed)
     model, batch_size = build_model(X_train.shape[1], best_params, n_targets=y.shape[1])
     model.fit(
         X_train,
@@ -1307,8 +1322,19 @@ def tune_scenario(cfg: SurrogateConfig, verbose: bool = True) -> dict[str, Any]:
 
     X_gen_comp = y_gen = None
     n_generated = 0
-    if cfg.generated_csv is not None and Path(cfg.generated_csv).exists():
+    if cfg.generated_csv is not None:
+        # Falling back to real-only here would run the control and file it under
+        # the augmented scenario's name, which is indistinguishable from the
+        # augmented run in every artifact it writes. Fail instead.
+        generated_path = Path(cfg.generated_csv)
+        if not generated_path.exists():
+            raise FileNotFoundError(
+                f"generated_csv is set to {cfg.generated_csv} but that file does "
+                "not exist; stage 1 has to run before this scenario"
+            )
         df_gen = load_table(cfg.generated_csv, "generated csv")
+        if len(df_gen) == 0:
+            raise ValueError(f"generated_csv {cfg.generated_csv} has no rows")
         X_gen_comp = df_gen[COMP_COLS].to_numpy(dtype=np.float64)
         y_gen = df_gen[TARGET_COLS].to_numpy(dtype=np.float64)
         n_generated = len(df_gen)
@@ -1404,7 +1430,7 @@ def run_scenarios(
     from `select_final_epoch`, which takes a minimum over folds to decide how
     long the final refit should run, and they are diagnostics only. Ranking by
     `final_epoch_fold_loss` would select scenarios on the fold that happened to
-    fit best; earlier revisions of this file did exactly that.
+    fit best.
 
     The score remains noisy. Scenarios separated by less than the between-fold
     spread should not be treated as ordered -- Supplementary Note S4 quantifies

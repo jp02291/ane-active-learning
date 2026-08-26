@@ -37,30 +37,28 @@ import yaml
 class SplitConfig:
     """Train-test partition.
 
-    The split is not random. Compositions in the top `top_fraction` by
-    |S_ANE| / kappa are placed in the training set, and the test set is drawn
-    from the remainder by stratified sampling over k-means clusters computed on
-    the standardized composition and property vectors.
+    Compositions in the top `top_fraction` by |S_ANE| / kappa are placed in the
+    training set, and the test set is drawn at random from the remainder.
 
-    This is a deliberate choice, not an oversight: at each cycle only about ten
-    high-performance compositions existed, and assigning any of them to the
-    test set would have removed the target region from the training data. The
-    consequence is that reported test metrics describe accuracy over the bulk
-    of the composition space rather than within the high-performance region,
-    and the manuscript states this.
+    The retention is a deliberate choice, not an oversight: at each cycle only
+    about ten high-performance compositions existed, and assigning any of them
+    to the test set would have removed the target region from the training
+    data. It is also what makes the partition target informed, so reported test
+    metrics describe accuracy over the bulk of the composition space rather
+    than within the high-performance region, and the manuscript states this.
     """
 
     input_csv: str = "data/data.csv"
     output_dir: str = "data/split"
     top_fraction: float = 0.15
     n_test: int = 10
-    n_clusters: int = 4
     seed: int = 42
 
-    #: Optional recovered campaign membership.  When both paths are set,
-    #: stage 0 validates and copies these rows instead of reconstructing a new
-    #: cluster-stratified partition.  This is used for cycle 1, whose original
-    #: 36/9 membership has now been reconciled against Supplementary Table S1.
+    #: The campaign membership.  When both paths are set, stage 0 validates and
+    #: copies these rows instead of drawing a new partition.  All three cycles
+    #: use it: cycle 1's membership was retained, and the cycle 2 and cycle 3
+    #: memberships were recovered from the deposited Fig. 2 prediction records.
+    #: A fresh draw would not reproduce any of them.
     fixed_train_csv: str | None = None
     fixed_test_csv: str | None = None
 

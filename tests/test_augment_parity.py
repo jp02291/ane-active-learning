@@ -737,13 +737,13 @@ def test_gan_config_matches_the_notebook_everywhere():
     assert cfg.snap_step == _RefGANConfig.SNAP_STEP == 0.01
 
 
-def test_generator_architecture_matches_the_released_checkpoint():
-    """Weight shapes the saved checkpoint has: (8, 64), (64, 64), (64, 9).
+def test_generator_architecture_matches_the_campaign():
+    """Weight shapes the campaign's generator had: (8, 64), (64, 64), (64, 9).
 
     Pinned as plain arithmetic rather than by loading TensorFlow, so the check
-    runs everywhere. If any of these three change, the released weights stop
-    loading -- which is a different and worse failure than merely training a
-    different model.
+    runs everywhere. No trained weights are deposited, so the architecture is
+    the only record of what was run; a change here would silently substitute a
+    different generator for the one behind the reported candidates.
     """
     from ane.augment import HIDDEN_UNITS, INPUT_DIM
 
@@ -802,3 +802,38 @@ def test_config_defaults_match_the_committed_yaml():
 
 if __name__ == "__main__":
     raise SystemExit(pytest.main([__file__, "-q"]))
+def test_requested_generated_sizes_are_not_silently_shortened():
+    """A file named for 500 samples must hold 500, or the stage must fail.
+
+    Nothing downstream reads the row count, so a short file files the scenario
+    under a size it never had.
+    """
+    import inspect
+
+    from ane import augment
+
+    src = inspect.getsource(augment.train_gan)
+    assert "min(n, len(pool))" not in src, (
+        "truncating to the pool size writes a mislabelled scenario"
+    )
+    assert "cannot supply" in src, "a pool too small for a requested size must raise"
+
+
+def test_the_co_limit_stays_out_of_the_shared_mask():
+    """`physical_mask` matches the surviving notebook, which had no Co limit.
+
+    The Co constraint belongs to the drawing stage. Folding it into the shared
+    mask would make the port stop reproducing what the campaign ran, and the
+    two boundaries are deliberately different: `ane.select` treats 0.60 as
+    inclusive, which is how Co0.60Mn0.09Ga0.30Pt0.01 was nominated in cycle 2
+    and then measured.
+    """
+    import inspect
+
+    from ane import augment
+
+    src = inspect.getsource(augment.physical_mask)
+    assert "co_max" not in src and '"Co"' not in src, (
+        "physical_mask is pinned to the notebook; the Co limit is applied later"
+    )
+    assert "co_max" in inspect.getsource(augment._build_final_pool)

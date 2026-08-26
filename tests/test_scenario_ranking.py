@@ -88,3 +88,34 @@ def test_cv_objective_needs_every_fold() -> None:
     assert src.count('return float("inf")') >= 2, (
         "a non-finite fold should abandon the trial immediately"
     )
+def test_search_training_is_seeded() -> None:
+    """Seeding the sampler and the fold split does not make the search reproducible.
+
+    Weight initialization, dropout and batch order also decide a trial's score.
+    Without a seed reset before the model is built, the same parameter set
+    scores differently on every run and the search result is not reproducible.
+    """
+    src = inspect.getsource(surrogate.cv_objective_loss)
+    seed_at = src.index("set_random_seed(cfg.seed)")
+    build_at = src.index("build_model(")
+    assert seed_at < build_at, "the seed has to be set before the model is built"
+
+
+def test_final_refit_is_seeded() -> None:
+    """The refit whose test metrics are reported is seeded like the folds."""
+    src = inspect.getsource(surrogate.train_final_model)
+    assert "set_random_seed(cfg.seed)" in src
+    assert src.index("set_random_seed(cfg.seed)") < src.index("build_model(")
+
+
+def test_a_configured_generated_set_must_exist() -> None:
+    """A missing generated file must fail, not quietly become a real-only run.
+
+    Falling back would run the control and write it under the augmented
+    scenario's name, which no downstream artifact distinguishes.
+    """
+    src = inspect.getsource(surrogate.tune_scenario)
+    assert "raise FileNotFoundError" in src, "a missing generated_csv must raise"
+    assert "if cfg.generated_csv is not None and Path(cfg.generated_csv).exists()" not in src, (
+        "existence must not be part of the condition that enables augmentation"
+    )

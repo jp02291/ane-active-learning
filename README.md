@@ -30,7 +30,7 @@ shortens generator training but is not required.
 Verify the installation:
 
 ```bash
-pytest -q          # 222 passed, 1 skipped
+pytest -q          # 243 passed, 1 skipped
 ```
 
 What that checks, and what it does not. The suite is a regression test on the
@@ -207,13 +207,14 @@ report `reconstructed`.
 
 ## Four things to know before reading the numbers
 
-**The train-test partition is not random.** Compositions in the top 15% by
+**The train-test partition is target informed.** Compositions in the top 15% by
 |*S*<sub>ANE</sub>| / κ are placed in the training set, and the test set is
-drawn from the remainder by cluster-stratified sampling. At each cycle only
-about ten high-performance compositions existed; assigning any of them to the
-test set would have removed the target region from the training data. Reported
-test metrics therefore describe accuracy over the bulk of the composition space
-rather than within the high-performance region. See `ane.data`.
+drawn at random from the remainder. At each cycle only about ten
+high-performance compositions existed; assigning any of them to the test set
+would have removed the target region from the training data. Reported test
+metrics therefore describe accuracy over the bulk of the composition space
+rather than within the high-performance region. It is the retention rule that
+does this, not the draw. See `ane.data`.
 
 **Generated data is filtered, not trusted.** A sample from the generator is
 kept only if it satisfies the physical constraints, states properties inside
@@ -258,7 +259,7 @@ coefficient |*S*<sub>ANE</sub>| at 300 K.
 
 Thermal conductivity was not reported for the literature entries. For those
 rows κ was reconstructed as κ<sub>L</sub> + κ<sub>e</sub>, with the electronic
-term from the reported electrical conductivity through the Wiedemann–Franz law
+term from the reported electrical conductivity through the Wiedemann-Franz law
 and the lattice term from the Callaway model in `ane.physics`. Those values are
 marked in the `kappa_source` column and are model-derived, not measured.
 
@@ -332,12 +333,23 @@ configuration deliberately departs from the surviving notebook
 follows it throughout and is pinned value by value
 (`test_gan_config_matches_the_notebook_everywhere`).
 
-The campaign's own run outputs for cycles 2 and 3. `split_manifest.json`,
-`best_params.json` and `scenario_summary.csv` were not archived for those
-cycles, so a reader can re-run the workflow but cannot check the reported
-numbers against records of the runs that produced them. Cycle 1 is the
-exception: its 36/9 partition was recovered and is deposited under
-`data/split/cycle1/`.
+The hyperparameters and scenario scores the campaign's own runs produced.
+`best_params.json` and `scenario_summary.csv` were not archived for cycles 2
+and 3, so a reader can re-run the workflow but cannot check the recorded branch
+choices against the runs that made them.
+
+The partitions themselves are deposited for all three cycles. Cycle 1's was
+retained. The cycle 2 and cycle 3 membership was recovered from the Fig. 2
+prediction record: its `y_true` values are the measured properties of the
+held-out rows, and the (kappa, |S_ANE|) pairs are unique across `data/data.csv`,
+so each row identifies one composition.
+
+All three are pinned under `data/reported_splits/` and copied out by stage 0
+rather than redrawn, because a fresh draw does not reproduce them -- on the
+same pool and the same seed, only three of the ten cycle-2 held-out compositions
+coincide. `recovery_manifest.json` records the source files, their
+hashes, how far the nearest alternative match sat, and the protocol checks the
+recovered set passes.
 
 ---
 

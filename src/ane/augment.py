@@ -336,8 +336,8 @@ def kcenter_select(X: np.ndarray, n_select: int) -> np.ndarray:
     if n_select >= n:
         return np.arange(n, dtype=int)
 
-    centre = X.mean(axis=0)
-    first = int(np.argmax(np.sum((X - centre) ** 2, axis=1)))
+    center = X.mean(axis=0)
+    first = int(np.argmax(np.sum((X - center) ** 2, axis=1)))
     selected = [first]
 
     min_d2 = np.sum((X - X[first]) ** 2, axis=1)
@@ -389,14 +389,15 @@ def sample_probabilities(
 # ---------------------------------------------------------------------------
 
 
-#: Hidden width of both networks. Not a configuration field: the saved
-#: checkpoint has this architecture, so changing it would make the released
-#: weights unloadable rather than merely producing a different model.
+#: Hidden width of both networks. Not a configuration field: this is the
+#: architecture the campaign's generator had, so changing it would silently
+#: substitute a different generator for the one the reported candidates came
+#: from. No trained weights are deposited, so the architecture is the record.
 HIDDEN_UNITS = 64
 
 
 def build_generator(cfg: GANConfig):
-    """latent -> 64 -> 64 -> 9, matching the released checkpoint."""
+    """latent -> 64 -> 64 -> 9, the architecture the campaign trained."""
     from tensorflow import keras
 
     return keras.Sequential(
@@ -600,6 +601,14 @@ def _build_final_pool(
         # the constraints again, now that the compositions have been snapped
         # onto the grid and are no longer exactly what was filtered above
         keep, _ = physical_mask(ilr_transform(df[COMP_COLS].to_numpy()), cfg)
+        # The Co limit sits here rather than inside `physical_mask`, and it is
+        # strict where the candidate enumeration of `ane.select` treats the same
+        # 0.60 as an inclusive bound. Both are the campaign's own behavior and
+        # neither is a typo to tidy away: Co0.60Mn0.09Ga0.30Pt0.01 was nominated
+        # in cycle 2 and measured, so folding this constraint into the shared
+        # mask, or making the two agree on the boundary, would exclude a
+        # composition the study actually reports. `physical_mask` is pinned to
+        # the surviving notebook by tests/test_augment_parity.py.
         keep &= df["Co"].to_numpy() < cfg.co_max
         df = df.loc[keep]
         if len(df) == 0:
@@ -817,9 +826,21 @@ def train_gan(cfg: GANConfig, verbose: bool = True) -> dict[str, Any]:
     features = RobustScaler().fit_transform(features)
     features[:, N_ILR:] *= float(cfg.kcenter_property_weight)
 
+    # A file called augmented_data_n500.csv with 400 rows is a scenario that
+    # silently did not run: nothing downstream reads the row count, so the
+    # comparison would be filed under a size it never had. Refuse the whole
+    # stage instead, and say which sizes the pool cannot cover.
+    short = [n for n in cfg.generated_sizes if n > len(pool)]
+    if short:
+        raise RuntimeError(
+            f"the filtered pool holds {len(pool)} samples, which cannot supply "
+            f"the requested size(s) {short}. Raise the drawing budget or lower "
+            "gan.generated_sizes; writing short files would mislabel the scenario"
+        )
+
     written = {}
     for n in cfg.generated_sizes:
-        chosen = kcenter_select(features, min(n, len(pool)))
+        chosen = kcenter_select(features, n)
         path = f"{cfg.output_prefix}{n}.csv"
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         pool.iloc[chosen].reset_index(drop=True).to_csv(path, index=False)

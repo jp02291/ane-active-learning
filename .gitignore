@@ -16,6 +16,8 @@ data/split/*
 !configs/*.yaml
 !data/data.csv
 !data/split/cycle1/
+!data/split/cycle2/
+!data/split/cycle3/
 !analysis/**/*.png
 
 __pycache__/

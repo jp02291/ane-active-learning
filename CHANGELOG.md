@@ -14,7 +14,7 @@
 - Added `tests/test_acquisition_reproduction.py` and
   `tests/test_benchmark_reproduction.py`, which pin the descriptor source, the
   data each comparison runs on, and the published numbers. The complete suite
-  contains 223 tests.
+  contains 244 tests.
 - `xgboost` is now a declared dependency. `analysis/benchmark` is the only
   module that needs it.
 - `README.md` documents `analysis/`.
@@ -26,6 +26,58 @@
   qualification.
 - `analysis/pca/run_pca.py` reports 31.0% for the first component in its module
   docstring, matching the value the script computes.
+- `CITATION.cff` and the README citation list the two authors who wrote the
+  code, matching how the article cites this deposit. The corresponding author
+  of the article is recorded under `contact`.
+- Stage 2 now seeds the training inside the hyperparameter search and the final
+  refit, not only the Optuna sampler and the fold split. Weight initialization,
+  dropout and batch order decide a trial's score, so without this the search
+  was not reproducible from a seed. The campaign's own search predates the fix
+  and its per-cycle traces were not retained, so this makes future runs
+  reproducible rather than re-deriving the recorded branch choices.
+- The cycle 2 and cycle 3 partitions are deposited under `data/split/`. Their
+  original split files were not archived, but the held-out membership was
+  recovered from the Fig. 2 prediction record: its `y_true` values are the
+  measured properties of the held-out rows, and every (kappa, |S_ANE|) pair in
+  `data/data.csv` is unique, so each row identifies one composition. The worst
+  match sits about 1e-8 away in relative terms with the nearest alternative
+  about 2e-2 away. Each `split_manifest.json` records the source, its hash, that
+  separation, and the protocol checks the recovered set passes: the right pool
+  for the cycle, nothing from the top 15 percent by figure of merit, and train
+  and test disjoint and covering the pool. `best_params.json` and
+  `scenario_summary.csv` for those cycles remain unrecovered.
+- `ane.data.make_split` draws the held-out set at random from the remainder,
+  matching the campaign and the Methods. The retention of the top 15% by figure
+  of merit is what makes the partition target informed. `split.n_clusters` no
+  longer exists.
+- All three memberships are now pinned through `split.fixed_train_csv` and
+  `split.fixed_test_csv`, as cycle 1 already was, so stage 0 validates and
+  copies them instead of drawing new ones. A fresh draw on the same pool with
+  the same seed does not reproduce the campaign's split -- three of ten
+  held-out compositions coincide in cycle 2 and four of ten in cycle 3 -- so
+  without pinning, re-running stage 0 would silently replace the partition
+  behind Fig. 2.
+- Added `tests/test_recovered_splits.py`, which re-derives the match and fails
+  if a (kappa, |S_ANE|) pair ever stops being unique.
+- Stage 1 fails when the filtered pool cannot supply a configured
+  `generated_sizes` entry. It previously wrote a short file under the requested
+  name, and nothing downstream reads the row count, so the scenario was filed
+  under a size it never had.
+- Recorded why the Co limit sits in the drawing stage rather than in
+  `physical_mask`, and why its strict bound differs from the inclusive one the
+  candidate enumeration uses. Both are the campaign's behavior:
+  Co0.60Mn0.09Ga0.30Pt0.01 sits on that boundary and was nominated in cycle 2
+  and measured, so unifying the two would exclude a composition this study
+  reports. `physical_mask` stays pinned to the surviving notebook.
+- A scenario that names a generated dataset now fails when that file is
+  missing. It previously fell back to a real-only run and wrote it under the
+  augmented scenario's name, which no downstream artifact distinguishes.
+- Corrected four comments that no longer matched the code or the deposit: the
+  `_cv_objective` docstring described skipping failed folds where the function
+  abandons the parameter set, and three places referred to released generator
+  weights, which this archive does not contain. The unfilled ORCID placeholders
+  in `CITATION.cff` were removed, and the deterministic-ops guard in
+  `analysis/benchmark` now reports a failure instead of swallowing it.
 - `analysis/acquisition/README.md` and `analysis/benchmark/README.md` record the
   environment each set of deposited results was produced in. Neither matches
   `requirements-lock.txt`, which pins the pipeline stages rather than these two

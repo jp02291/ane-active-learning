@@ -2,7 +2,7 @@
   "release_version": "1.2.3",
   "verification_date": "2026-08-25",
   "pytest": {
-    "passed": 222,
+    "passed": 243,
     "skipped": 1,
     "failed": 0,
     "note": "one test is skipped where xgboost is not installed"
@@ -14,7 +14,8 @@
     "split_overlap": 0,
     "authoritative_45_sha256": "53CAF4076E15C0C0F9678A9407D764A090656BE7F3B91B6B355B02DA4BBD7154",
     "enriched_train_36_sha256": "B12E54F6938F5F79ACA18BE4F8447FCE2A901CB72E0E3F65645E1D34595735F9",
-    "enriched_test_9_sha256": "52316FA473BA092AE0DB1DED6B71AB404F2B1C48662EFCAF8C8B26A76C12723F"
+    "enriched_test_9_sha256": "52316FA473BA092AE0DB1DED6B71AB404F2B1C48662EFCAF8C8B26A76C12723F",
+    "note": "all three memberships are pinned under data/reported_splits/. Cycle 1 was retained; cycles 2 and 3 were recovered from the deposited Fig. 2 prediction records, see each recovery_manifest.json"
   },
   "paired_bootstrap": {
     "root_seed": 42,

@@ -4,9 +4,8 @@ The partition deserves a note, because it is not a random hold-out and the
 distinction matters when reading the reported test metrics.
 
 Compositions in the top 15% by |S_ANE| / kappa are assigned to the training
-set. The test set is then drawn from the remaining 85% by stratified sampling
-over k-means clusters fitted to the standardized composition and property
-vectors, so that it spans the same regions of the space rather than clumping.
+set. The test set is then drawn at random from the remaining 85%. It is the
+retention rule, not the draw, that makes the partition target informed.
 
 The reason is arithmetic. At each cycle roughly ten high-performance
 compositions existed in total; placing even two of them in the test set would
@@ -28,9 +27,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
-from sklearn.cluster import KMeans
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
 
 from .config import SplitConfig
 from .elements import ELEMENTS, GROUP_A, GROUP_B
@@ -190,19 +187,11 @@ def make_split(
             f"{len(remaining)} rows remain after reserving the top {n_top}"
         )
 
-    comps = remaining[list(ELEMENTS)].fillna(0.0).to_numpy(float)
-    props = remaining[list(PROPERTY_COLUMNS)].to_numpy(float)
-    features = StandardScaler().fit_transform(np.hstack([comps, props]))
-
-    n_clusters = min(cfg.n_clusters, len(remaining))
-    labels = KMeans(
-        n_clusters=n_clusters, random_state=cfg.seed, n_init=10
-    ).fit_predict(features)
-
+    # A plain random draw from what is left. It is the retention rule above,
+    # not the draw, that makes the partition target informed.
     rem_train, test = train_test_split(
         remaining,
         test_size=cfg.n_test,
-        stratify=labels,
         random_state=cfg.seed,
     )
 
@@ -218,8 +207,8 @@ def make_split(
     if verbose:
         print(f"loaded {len(df)} compositions from {cfg.input_csv}")
         print(f"  top {cfg.top_fraction:.0%} by |S_ANE|/kappa ({n_top} rows) held in train")
-        print(f"  train {len(train)} rows  ({n_top} reserved + {len(rem_train)} stratified)")
-        print(f"  test  {len(test)} rows   (stratified over {n_clusters} clusters)")
+        print(f"  train {len(train)} rows  ({n_top} reserved + {len(rem_train)} drawn)")
+        print(f"  test  {len(test)} rows   (random draw from the remainder)")
         print(f"  written to {out}/")
 
     return train, test
@@ -301,7 +290,6 @@ def _write_split_manifest(
         "seed": cfg.seed,
         "top_fraction": cfg.top_fraction,
         "n_test": cfg.n_test,
-        "n_clusters": cfg.n_clusters,
         "n_train": int(len(train)),
         "n_test_actual": int(len(test)),
         "train": _split_label(train),
