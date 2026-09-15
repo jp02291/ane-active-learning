@@ -1,0 +1,13 @@
+{
+  "site_fractions": {
+    "Fe_site": 0.75,
+    "X_site": 0.25
+  },
+  "elemental_data": "Supplementary Table S8(a)",
+  "mass_weight_inside_site": false,
+  "mass_weight_on_site_combination": false,
+  "volume_proxy": "r^3",
+  "max_Gamma_M": 0.08446336,
+  "max_Gamma_V": 0.0011611084,
+  "source_data_sha256": "d84460d79128d5f9a5e8cdf5d25ba8dbc9f9cf5372f05f8ed9a286b4c8ff36a8"
+}

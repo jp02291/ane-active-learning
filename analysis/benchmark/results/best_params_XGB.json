@@ -1,0 +1,13 @@
+{
+  "best_cv_scaled_mse": 0.049796344712376595,
+  "best_params": {
+    "n_estimators": 786,
+    "max_depth": 5,
+    "learning_rate": 0.0035730927662452243,
+    "subsample": 0.933476067338219,
+    "colsample_bytree": 0.5808101981171712,
+    "min_child_weight": 4.720116165459505,
+    "reg_alpha": 0.00011640785779459626,
+    "reg_lambda": 0.08581993865444139
+  }
+}

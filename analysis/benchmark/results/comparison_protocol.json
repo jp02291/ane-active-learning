@@ -1,0 +1,62 @@
+{
+  "seed": 42,
+  "models": [
+    "DNN",
+    "KRR",
+    "SVR",
+    "XGB",
+    "GPR"
+  ],
+  "features": {
+    "composition_columns": [
+      "Fe",
+      "Co",
+      "Mn",
+      "Ga",
+      "Al",
+      "Si",
+      "Ge",
+      "Pt"
+    ],
+    "ILR_dimensions": 7,
+    "calculated_descriptor_columns": [
+      "radius_mean",
+      "atomic_size_difference",
+      "vec_mean",
+      "vec_std",
+      "atomic_weight_mean",
+      "mixing_entropy",
+      "electronegativity_mean",
+      "electronegativity_std"
+    ],
+    "total_input_dimensions": 15,
+    "zero_replacement_delta": 0.001
+  },
+  "targets": [
+    "kxx",
+    "S_ANE"
+  ],
+  "cross_validation": {
+    "type": "RepeatedKFold",
+    "n_splits": 3,
+    "n_repeats": 3,
+    "same_splits_for_all_models": true
+  },
+  "hyperparameter_optimization": {
+    "library": "Optuna",
+    "sampler": "TPE",
+    "n_trials_per_model": 150,
+    "objective": "mean scaled validation MSE across both targets"
+  },
+  "scaling": {
+    "input": "MinMaxScaler fitted on fold train only",
+    "target": "MinMaxScaler fitted on fold train only"
+  },
+  "dnn": {
+    "evaluation_seeds": [
+      42
+    ],
+    "epochs_tune": 100,
+    "epochs_eval": 200
+  }
+}

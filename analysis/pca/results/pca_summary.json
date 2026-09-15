@@ -1,0 +1,22 @@
+{
+  "n_compositions": 30,
+  "features": [
+    "Fe",
+    "Co",
+    "Mn",
+    "Ga",
+    "Al",
+    "Si",
+    "Ge",
+    "Pt"
+  ],
+  "preprocessing": "StandardScaler (zero mean, unit variance)",
+  "n_components": 2,
+  "explained_variance_ratio_percent": [
+    31.0,
+    27.3
+  ],
+  "explained_variance_cumulative_percent": 58.3,
+  "arrow_scale_display_only": 4.0,
+  "input_sha256": "1e68b41c238f1cac40a660c960d1133d085a7c6e422561622d4b5bb3e7729e3c"
+}
