@@ -1,0 +1,70 @@
+{
+  "benchmark_type": "retrospective conditional benchmark on the 25 experimentally measured campaign candidates",
+  "initial_rows": 45,
+  "candidate_universe_rows": 25,
+  "budgets": [
+    10,
+    20,
+    25
+  ],
+  "random_permutations": 200000,
+  "random_seed": 42,
+  "random_hypervolume_permutations": 20000,
+  "initial_best_FOM": 0.3116825290810931,
+  "active_learning": [
+    {
+      "strategy": "active_learning_observed",
+      "budget": 10,
+      "best_new_fom": 0.2828875332394807,
+      "best_overall_fom": 0.3116825290810931,
+      "improves_initial_best": false,
+      "best_new_kappa": 12.786,
+      "best_new_S_ANE": 3.617,
+      "hypervolume": 0.48861503031418496,
+      "hypervolume_gain_over_initial": 0.026402649102056475,
+      "final_top5_recovered": 1,
+      "percentile_vs_random_best_new_fom": 0.108385,
+      "random_probability_best_at_least_as_high": 0.943525,
+      "percentile_vs_random_hypervolume": 0.4052,
+      "random_probability_hypervolume_at_least_as_high": 0.59485
+    },
+    {
+      "strategy": "active_learning_observed",
+      "budget": 20,
+      "best_new_fom": 0.3530094910095711,
+      "best_overall_fom": 0.3530094910095711,
+      "improves_initial_best": true,
+      "best_new_kappa": 14.9826,
+      "best_new_S_ANE": 5.289,
+      "hypervolume": 0.5168821520547967,
+      "hypervolume_gain_over_initial": 0.05466977084266822,
+      "final_top5_recovered": 2,
+      "percentile_vs_random_best_new_fom": 0.19996,
+      "random_probability_best_at_least_as_high": 0.967125,
+      "percentile_vs_random_hypervolume": 0.31025,
+      "random_probability_hypervolume_at_least_as_high": 0.6902
+    },
+    {
+      "strategy": "active_learning_observed",
+      "budget": 25,
+      "best_new_fom": 0.3591703782490195,
+      "best_overall_fom": 0.3591703782490195,
+      "improves_initial_best": true,
+      "best_new_kappa": 15.043,
+      "best_new_S_ANE": 5.403,
+      "hypervolume": 0.5202439295503848,
+      "hypervolume_gain_over_initial": 0.0580315483382563,
+      "final_top5_recovered": 5,
+      "percentile_vs_random_best_new_fom": 1.0,
+      "random_probability_best_at_least_as_high": 1.0,
+      "percentile_vs_random_hypervolume": 1.0,
+      "random_probability_hypervolume_at_least_as_high": 1.0
+    }
+  ],
+  "major_limitation": "The 25-candidate evaluation universe was itself chosen by active learning. Random and diversity-only baselines therefore test prioritization within the experimentally observed set, not counterfactual full-space discovery efficiency. Unmeasured random candidates have no experimental labels.",
+  "defensible_use": "Report this as a conditional retrospective sensitivity analysis. Do not claim definitive superiority over random search unless an independently labeled candidate benchmark or prospective control is added.",
+  "inputs": {
+    "authoritative_45_sha256": "53caf4076e15c0c0f9678a9407d764a090656be7f3b91b6b355b02da4bbd7154",
+    "data_csv_sha256": "94e14db34940f1c74967c2c6d7a5627f1f510baa57b63b2b498750f9fd81c987"
+  }
+}

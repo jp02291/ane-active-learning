@@ -1,0 +1,7 @@
+﻿cycle,branch,artifact_dir,model_path,prediction_path,selected_for_active_learning
+1,real-only,cycle1/artifacts_dnn_base,cycle1/artifacts_dnn_base/final_best_model.h5,cycle1/artifacts_dnn_base/test_predictions.csv,False
+1,augmented,cycle1/artifacts_dnn_augmented,cycle1/artifacts_dnn_augmented/final_best_model.h5,cycle1/artifacts_dnn_augmented/test_predictions.csv,True
+2,real-only,cycle2/artifacts_dnn_base,cycle2/artifacts_dnn_base/final_best_model.h5,cycle2/artifacts_dnn_base/test_predictions.csv,True
+2,augmented,cycle2/artifacts_dnn_augmented,cycle2/artifacts_dnn_augmented/final_best_model.h5,cycle2/artifacts_dnn_augmented/test_predictions.csv,False
+3,real-only,cycle3/artifacts_dnn_base,cycle3/artifacts_dnn_base/final_best_model.h5,cycle3/artifacts_dnn_base/test_predictions.csv,False
+3,augmented,cycle3/artifacts_dnn_augmented,cycle3/artifacts_dnn_augmented/final_best_model.h5,cycle3/artifacts_dnn_augmented/test_predictions.csv,True
