@@ -6,7 +6,7 @@
 # file (`final_best_model.h5`, cycle 3, non-generated scenario, saved
 # 2026-07-27) records Keras 3.12.0 in its root attributes, the environment
 # reports the same version, and that model's architecture and hyperparameters
-# match Supplementary Table S5 row by row.
+# match Supplementary Table S8 row by row.
 #
 # Python 3.10, from the cp310 wheel tags of numpy, scipy and scikit-learn.
 #

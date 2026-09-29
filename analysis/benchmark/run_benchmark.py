@@ -1,6 +1,6 @@
-"""Surrogate-model benchmark behind Supplementary Note S2 and Fig. S6.
+"""Surrogate-model benchmark behind Supplementary Note S5 and Fig. S5.
 
-The manuscript uses a deep neural network as the surrogate. Note S2 asks the
+The manuscript uses a deep neural network as the surrogate. Note S5 asks the
 obvious question: would a simpler model have done better on a dataset this
 small? Five regressors are compared under one protocol -- the DNN, kernel ridge
 regression, support vector regression, extreme gradient boosting, and

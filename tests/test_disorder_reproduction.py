@@ -1,13 +1,13 @@
 """The Fig. 6(d) disorder parameters must stay reproducible, and stay distinct
-from the Callaway-Klemens reconstruction of Supplementary Note S1.
+from the Callaway-Klemens reconstruction of Methods and Supplementary Note S4.
 
-Two conventions decide the numbers plotted in Fig. 6(d) and Supplementary
-Fig. S4: the site sums carry no (M_i / M_s)^2 weight, and the elemental data
-come from Supplementary Table S8(a) rather than the Callaway-Klemens set of
-Table S8(b). Either change is invisible in the output but moves Gamma_V by an
+Two conventions decide the numbers plotted in Fig. 6(d): the site sums carry no
+(M_i / M_s)^2 weight, and the elemental data come from Supplementary Table S5(a)
+rather than the Callaway-Klemens set of Table S5(b). Either change is invisible in the output but moves Gamma_V by an
 order of magnitude, so both are pinned here alongside the qualitative
 correspondence the main text draws between the disorder parameters, the (220)
-FWHM and the lattice thermal conductivity.
+FWHM and the lattice thermal conductivity. The Fe-Ga-Pt series is not
+evaluated (Methods), and the tests pin both that omission and the reason for it.
 """
 
 from __future__ import annotations
@@ -42,7 +42,7 @@ def rows() -> dict[str, dict[str, str]]:
 
 
 def test_uses_the_descriptor_radii_not_the_callaway_set(mod) -> None:
-    """Table S8(a), not S8(b). Ga is the entry that separates the two."""
+    """Table S5(a), not S5(b). Ga is the entry that separates the two."""
     assert mod.METALLIC_RADIUS_A["Ga"] == pytest.approx(1.408)
     assert mod.METALLIC_RADIUS_A["Al"] == pytest.approx(1.429)
 
@@ -62,16 +62,35 @@ def test_site_sum_carries_no_mass_weight(mod) -> None:
 
 def test_endmembers_have_zero_disorder(mod, rows) -> None:
     """A single occupant on each site cannot fluctuate."""
-    for comp in (REFERENCE, "Fe0.75Al0.25", "Fe0.75Pt0.25"):
+    for comp in (REFERENCE, "Fe0.75Al0.25"):
         assert float(rows[comp]["Gamma_M"]) == pytest.approx(0.0, abs=1e-12)
         assert float(rows[comp]["Gamma_V"]) == pytest.approx(0.0, abs=1e-12)
 
 
-def test_pt_split_composition_maximises_both_parameters(rows) -> None:
-    gm = {c: float(r["Gamma_M"]) for c, r in rows.items()}
-    gv = {c: float(r["Gamma_V"]) for c, r in rows.items()}
-    assert max(gm, key=gm.get) == BEST_PT
-    assert max(gv, key=gv.get) == BEST_PT
+def test_fe_ga_pt_series_is_not_evaluated(rows) -> None:
+    """Methods: the Fe-Ga-Pt series was not evaluated, so its Gamma cells are empty."""
+    for comp, r in rows.items():
+        if r["series"] == "Fe-Ga-Pt":
+            assert r["Gamma_M"] == "" and r["Gamma_V"] == "", comp
+
+
+def test_pt_result_depends_on_the_site_assignment(mod) -> None:
+    """The reason given in Methods: the 0.01 Fe-site deficit decides the answer."""
+    volume = {el: r ** 3 for el, r in mod.METALLIC_RADIUS_A.items()}
+    gm = [mod.effective_gamma(s, mod.ATOMIC_MASS) for s in mod.PT_ASSIGNMENTS.values()]
+    gv = [mod.effective_gamma(s, volume) for s in mod.PT_ASSIGNMENTS.values()]
+    assert max(gm) / min(gm) > 1.8
+    assert max(gv) / min(gv) > 50
+
+
+def test_al_series_extrema_match_fig6d(rows) -> None:
+    """Gamma_V peaks at the lowest-kappa_L composition, Gamma_M at x = 0.1875."""
+    al = {c: r for c, r in rows.items() if r["Gamma_M"] != ""}
+    gm = {c: float(r["Gamma_M"]) for c, r in al.items()}
+    gv = {c: float(r["Gamma_V"]) for c, r in al.items()}
+    kl = {c: float(r["kappa_L_W_per_mK"]) for c, r in al.items()}
+    assert max(gv, key=gv.get) == BEST_AL == min(kl, key=kl.get)
+    assert max(gm, key=gm.get) == "Fe0.75Ga0.0625Al0.1875"
 
 
 def test_fwhm_maximum_coincides_with_lattice_conductivity_minimum(rows) -> None:

@@ -140,7 +140,7 @@ class CallawayParams:
     VOLUME = 1.217e-29    # volume per atom [m^3]
     L_BOUNDARY = 5e-6     # boundary scattering length [m]
     #: Strain-field parameter used for the deposited literature reconstruction.
-    #: This parameter is adjustable, as stated in Supplementary Note S1.
+    #: This parameter is adjustable, as stated in Supplementary Note S4.
     EPSILON = 0.71
 
     #: The parameterization the campaign ran. Not the physical sign convention;
@@ -148,7 +148,7 @@ class CallawayParams:
     LEGACY_GAMMA = 2.0
     LEGACY_UMKLAPP_SIGN = +1
 
-    #: Defaults: the standard form quoted in Supplementary Note S1 and
+    #: Defaults: the standard form quoted in Methods and
     #: Supplementary Table S6. GAMMA is derived from the legacy pair rather
     #: than written out, so the equivalence is exact rather than exact to the
     #: two decimals the table prints.

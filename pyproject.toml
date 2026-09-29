@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ane-active-learning"
-version = "1.0.0"
+version = "1.1.0"
 requires-python = ">=3.10"
 dependencies = [
     "numpy>=1.24",
@@ -20,7 +20,7 @@ dependencies = [
     "optuna>=3.4",
     # analysis/benchmark compares the DNN against four alternatives, one of
     # which is gradient boosting. Only that module needs it, but a reader
-    # checking Supplementary Note S2 needs it installed.
+    # checking Supplementary Note S5 needs it installed.
     "xgboost>=2.0",
 ]
 

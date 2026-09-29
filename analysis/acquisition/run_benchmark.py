@@ -1,6 +1,6 @@
-"""Retrospective comparison of candidate-acquisition rules (Supplementary Fig. S5).
+"""Retrospective comparison of candidate-acquisition rules (Supplementary Fig. S2).
 
-Supplementary Fig. S5 asks a narrow question: given the compositions this
+Supplementary Fig. S2 asks a narrow question: given the compositions this
 campaign actually measured, how quickly would each of four acquisition rules
 have reached the best one? The pool is frozen to the measured compositions, a
 starting subset is handed to each rule, and each rule then requests one batch
@@ -24,7 +24,7 @@ A pool-based replay can only select compositions that were measured, and the
 pool was itself assembled by the rule under test. The comparison is therefore
 conditional on this candidate pool: it reports how the rules ordered a fixed
 set, not what a different rule would have discovered in the full composition
-space. Supplementary Fig. S5 states this bound explicitly and it should not be
+space. Supplementary Fig. S2 states this bound explicitly and it should not be
 read as a general ranking of acquisition functions.
 
 Inputs and conventions
@@ -33,7 +33,7 @@ The pool is `data/data.csv`, the 70-composition dataset, with `cycle_added`
 marking the 45 initial entries as cycle 0. Features come from
 `ane.features.featurize`, so this baseline and the campaign surrogate see
 identical inputs: the same ILR construction, the same element order, and the
-element properties of Supplementary Table S8(a).
+element properties of Supplementary Table S5(a).
 
 Objectives are the two the manuscript maximizes, 1/kappa and |S_ANE|.
 Thermal conductivity is modeled on a log scale so that the posterior cannot
@@ -88,7 +88,7 @@ CONFIGURATIONS = {
         batch=1,
         cycles=25,
         seeds=50,
-        note="Supplementary Fig. S5(a): unit batch size from the full initial dataset",
+        note="Supplementary Fig. S2(a): unit batch size from the full initial dataset",
     ),
     "robust": dict(
         pool="all",
@@ -96,7 +96,7 @@ CONFIGURATIONS = {
         batch=5,
         cycles=5,
         seeds=50,
-        note="Supplementary Fig. S5(b, c): randomized starting data",
+        note="Supplementary Fig. S2(b) and the hypervolume in its legend: randomized starting data",
     ),
     "measured_only": dict(
         pool="measured",
@@ -104,7 +104,7 @@ CONFIGURATIONS = {
         batch=1,
         cycles=25,
         seeds=50,
-        note="Supplementary Note S1: the same comparison with the 13 reconstructed "
+        note="Supplementary Fig. S2 legend and Methods: the same comparison with the 13 reconstructed "
         "literature entries removed from the training set",
     ),
 }
@@ -119,7 +119,7 @@ def load_pool(which: str) -> pd.DataFrame:
 
     `kappa_source` marks the 13 entries whose kappa was reconstructed rather
     than measured. Dropping them removes them from the starting data and from
-    the candidate pool alike, which is what Supplementary Note S1 reports.
+    the candidate pool alike, which is the repeat reported in the Supplementary Fig. S2 legend.
     """
     df = pd.read_csv(DATA)
     if which == "measured":
@@ -367,8 +367,8 @@ def starting_mask(base_mask: np.ndarray, fraction: float, repetition: int) -> np
     """The cycle-0 rows, or a fresh random share of them for each repetition.
 
     A fraction below one makes the otherwise deterministic rules stochastic
-    through the data, which is what produces the bands in Supplementary
-    Fig. S5(c). The same subset is used by every rule at a given repetition, so
+    through the data, which is what produces the bands in
+    `results/hypervolume_robust.png`. The same subset is used by every rule at a given repetition, so
     the comparison stays paired. Compositions acquired during the campaign are
     never placed in the starting set, so the pool optimum cannot leak into it.
     """
@@ -459,7 +459,7 @@ def main() -> None:
     summary = {
         "input": str(DATA.relative_to(REPO)).replace("\\", "/"),
         "input_sha256": sha256(DATA),
-        "features": "ane.features.featurize (Supplementary Table S8(a))",
+        "features": "ane.features.featurize (Supplementary Table S5(a))",
         "rng_base": RNG_BASE,
         "configurations": {},
     }

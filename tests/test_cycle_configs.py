@@ -111,7 +111,7 @@ def test_every_path_is_scoped_to_its_cycle(cycle: int) -> None:
 def test_selected_scenario_is_the_one_the_campaign_used(cycle: int) -> None:
     """Stages 3 and 4 must build the ensemble the campaign selected.
 
-    Cycle 2 retained the real-only branch (Supplementary Table S5), so a
+    Cycle 2 retained the real-only branch (Supplementary Table S8), so a
     configuration that still pointed at an augmented scenario would train the
     wrong model while the comment claimed otherwise.
     """

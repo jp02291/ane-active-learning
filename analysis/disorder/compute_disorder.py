@@ -1,8 +1,9 @@
-"""Site-resolved alloy-disorder parameters for Fig. 6(d) and Supplementary Fig. S4.
+"""Site-resolved alloy-disorder parameters for Fig. 6(d), and the Fig. 6 source data.
 
-Both figures plot the mass-disorder parameter Gamma_M and the volume-mismatch
-parameter Gamma_V for the two model-selected alloy series. This script is the
-calculation behind them, and it also emits the Fig. 6 source-data table.
+Fig. 6(d) plots the mass-disorder parameter Gamma_M and the volume-mismatch
+parameter Gamma_V for the Fe0.75Ga0.25-xAlx series. This script is the
+calculation behind that panel, and it also emits the source-data table for all
+four panels of Fig. 6.
 
 The model treats Fe3X as two sublattices with fixed site fractions n_Fe = 0.75
 and n_X = 0.25. Within a site,
@@ -13,21 +14,28 @@ with f_{i,s} normalized inside the site, and the two sites combine as
 
     Gamma = n_Fe Gamma_Fe-site + n_X Gamma_X-site.
 
+The Fe-Ga-Pt series is not evaluated, as stated in Methods. With an Fe fraction
+of 0.74, the result for Fe0.74Ga0.24Pt0.02 depends on which element fills the
+remaining 0.01 of the Fe sublattice, a difference comparable to the
+compositional accuracy of the arc-melted specimens. The script writes that
+dependence to `results/pt_site_assignment_sensitivity.csv` so the reason can be
+checked, and leaves the Gamma columns of the Fe-Ga-Pt rows empty.
+
 Two conventions are load-bearing, and they keep this calculation distinct from
-the Callaway-Klemens reconstruction of Supplementary Note S1.
+the Callaway-Klemens reconstruction of Methods and Supplementary Note S4.
 
 The site sums carry no (M_i / M_s)^2 weight and the site combination carries no
-(M_s / M)^2 weight. Note S1 carries neither: it is the single-lattice
-Klemens form Gamma = sum_i c_i (1 - P_i / P_bar)^2 evaluated over
-the whole composition, with no sublattice structure for a site weight to attach
-to. What separates the two calculations is the site resolution and the
+(M_s / M)^2 weight. The Callaway-Klemens reconstruction carries neither: it is
+the single-lattice Klemens form Gamma = sum_i c_i (1 - P_i / P_bar)^2 evaluated
+over the whole composition, with no sublattice structure for a site weight to
+attach to. What separates the two calculations is the site resolution and the
 within-site normalization of f_{i,s}, together with the radius set below, so
 they are reported on their own scales rather than compared numerically.
 
-The radii and masses are those of Supplementary Table S8(a), the descriptor
-set, not the Callaway-Klemens set of Table S8(b). The choice matters: Ga and Al
-are nearly the same size in S8(a) (1.408 and 1.429 A) and differ markedly in
-S8(b) (1.53 and 1.43 A), which changes Gamma_V by an order of magnitude.
+The radii and masses are those of Supplementary Table S5(a), the descriptor
+set, not the Callaway-Klemens set of Table S5(b). The choice matters: Ga and Al
+are nearly the same size in S5(a) (1.408 and 1.429 A) and differ markedly in
+S5(b) (1.53 and 1.43 A), which changes Gamma_V by an order of magnitude.
 `tests/test_disorder_reproduction.py` pins both conventions.
 
 Gamma_V uses r^3 as the volume proxy. The 4/3 pi prefactor cancels in the ratio
@@ -48,14 +56,14 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 OUT = HERE / "results"
 
-#: Supplementary Table S8(a) -- the descriptor set
+#: Supplementary Table S5(a) -- the descriptor set
 ATOMIC_MASS = {"Fe": 55.845, "Ga": 69.723, "Al": 26.9815385, "Pt": 195.084}
 METALLIC_RADIUS_A = {"Fe": 1.26, "Ga": 1.408, "Al": 1.429, "Pt": 1.39}
 
 N_FE_SITE, N_X_SITE = 0.75, 0.25
 
-#: Site occupancies. For Fe0.74Ga0.24Pt0.02 the site preference of Pt is not
-#: resolved by the measurements, so it is split across both sublattices.
+#: Site occupancies of the compositions that are evaluated: the Fe-Ga-Al series
+#: and the shared Fe0.75Ga0.25 endpoint. Ga and Al share the X sublattice.
 SITE_MODELS: dict[str, dict[str, dict[str, float]]] = {
     "Fe0.75Ga0.25": {"Fe_site": {"Fe": 0.75}, "X_site": {"Ga": 0.25}},
     "Fe0.75Ga0.1875Al0.0625": {"Fe_site": {"Fe": 0.75},
@@ -65,14 +73,21 @@ SITE_MODELS: dict[str, dict[str, dict[str, float]]] = {
     "Fe0.75Ga0.0625Al0.1875": {"Fe_site": {"Fe": 0.75},
                                "X_site": {"Ga": 0.0625, "Al": 0.1875}},
     "Fe0.75Al0.25": {"Fe_site": {"Fe": 0.75}, "X_site": {"Al": 0.25}},
-    "Fe0.74Ga0.24Pt0.02": {"Fe_site": {"Fe": 0.74, "Pt": 0.01},
-                           "X_site": {"Ga": 0.24, "Pt": 0.01}},
-    "Fe0.75Ga0.125Pt0.125": {"Fe_site": {"Fe": 0.75},
-                             "X_site": {"Ga": 0.125, "Pt": 0.125}},
-    "Fe0.75Pt0.25": {"Fe_site": {"Fe": 0.75}, "X_site": {"Pt": 0.25}},
 }
 
-#: Supplementary Table S7, and the (220) FWHM behind Fig. 6(c). FWHM was
+#: Three ways to place the 0.01 Fe-site deficit of Fe0.74Ga0.24Pt0.02. The
+#: measurements do not distinguish them, which is why the series is not
+#: evaluated; the spread of Gamma across them is written out as the reason.
+PT_ASSIGNMENTS: dict[str, dict[str, dict[str, float]]] = {
+    "Pt fills the Fe-site deficit": {"Fe_site": {"Fe": 0.74, "Pt": 0.01},
+                                     "X_site": {"Ga": 0.24, "Pt": 0.01}},
+    "Ga fills the Fe-site deficit": {"Fe_site": {"Fe": 0.74, "Ga": 0.01},
+                                     "X_site": {"Ga": 0.23, "Pt": 0.02}},
+    "Fe-site deficit left vacant": {"Fe_site": {"Fe": 0.74},
+                                    "X_site": {"Ga": 0.24, "Pt": 0.02}},
+}
+
+#: Supplementary Table S3, and the (220) FWHM behind Fig. 6(c). FWHM was
 #: measured for six of the eight compositions; None marks the two that were not.
 TRANSPORT = {
     #                          kappa   kappa_e kappa_L S_ANE  FWHM(220) deg
@@ -119,9 +134,10 @@ def main() -> None:
     volume = {el: r ** 3 for el, r in METALLIC_RADIUS_A.items()}
 
     rows = []
-    for name, sites in SITE_MODELS.items():
+    for name in TRANSPORT:
         series, at_pct = SERIES[name]
         kappa, kappa_e, kappa_L, s_ane, fwhm = TRANSPORT[name]
+        sites = SITE_MODELS.get(name)
         rows.append({
             "composition": name,
             "series": series,
@@ -131,8 +147,8 @@ def main() -> None:
             "kappa_L_W_per_mK": kappa_L,
             "S_ANE_uV_per_K": s_ane,
             "FWHM_220_deg": "" if fwhm is None else fwhm,
-            "Gamma_M": round(effective_gamma(sites, ATOMIC_MASS), 8),
-            "Gamma_V": round(effective_gamma(sites, volume), 10),
+            "Gamma_M": "" if sites is None else round(effective_gamma(sites, ATOMIC_MASS), 8),
+            "Gamma_V": "" if sites is None else round(effective_gamma(sites, volume), 10),
         })
 
     src = REPO / "data" / "alloy_series_source_data.csv"
@@ -147,16 +163,34 @@ def main() -> None:
             f, fieldnames=["composition", "Gamma_M", "Gamma_V"],
             extrasaction="ignore", lineterminator="\n")
         w.writeheader()
-        w.writerows(rows)
+        w.writerows(r for r in rows if r["Gamma_M"] != "")
 
+    sensitivity = [
+        {"assignment": label,
+         "Gamma_M": round(effective_gamma(sites, ATOMIC_MASS), 8),
+         "Gamma_V": round(effective_gamma(sites, volume), 10)}
+        for label, sites in PT_ASSIGNMENTS.items()
+    ]
+    with open(OUT / "pt_site_assignment_sensitivity.csv", "w", newline="",
+              encoding="utf-8") as f:
+        w = csv.DictWriter(f, fieldnames=["assignment", "Gamma_M", "Gamma_V"],
+                           lineterminator="\n")
+        w.writeheader()
+        w.writerows(sensitivity)
+
+    evaluated = [r for r in rows if r["Gamma_M"] != ""]
     summary = {
         "site_fractions": {"Fe_site": N_FE_SITE, "X_site": N_X_SITE},
-        "elemental_data": "Supplementary Table S8(a)",
+        "elemental_data": "Supplementary Table S5(a)",
+        "evaluated_series": "Fe0.75Ga0.25-xAlx",
+        "fe_ga_pt_series": "not evaluated; see pt_site_assignment_sensitivity.csv",
         "mass_weight_inside_site": False,
         "mass_weight_on_site_combination": False,
         "volume_proxy": "r^3",
-        "max_Gamma_M": max(r["Gamma_M"] for r in rows),
-        "max_Gamma_V": max(r["Gamma_V"] for r in rows),
+        "max_Gamma_M": max(r["Gamma_M"] for r in evaluated),
+        "argmax_Gamma_M": max(evaluated, key=lambda r: r["Gamma_M"])["composition"],
+        "max_Gamma_V": max(r["Gamma_V"] for r in evaluated),
+        "argmax_Gamma_V": max(evaluated, key=lambda r: r["Gamma_V"])["composition"],
         "source_data_sha256": hashlib.sha256(src.read_bytes()).hexdigest(),
     }
     (OUT / "disorder_summary.json").write_text(
@@ -164,8 +198,8 @@ def main() -> None:
 
     print(f"{'composition':<24}{'Gamma_M':>12}{'Gamma_V':>14}{'FWHM(220)':>11}")
     for r in rows:
-        print(f"{r['composition']:<24}{r['Gamma_M']:12.6f}"
-              f"{r['Gamma_V']:14.8f}{str(r['FWHM_220_deg']):>11}")
+        print(f"{r['composition']:<24}{str(r['Gamma_M']):>12}"
+              f"{str(r['Gamma_V']):>14}{str(r['FWHM_220_deg']):>11}")
     print(f"\nwrote {src.relative_to(REPO)} and {OUT.relative_to(REPO)}")
 
 

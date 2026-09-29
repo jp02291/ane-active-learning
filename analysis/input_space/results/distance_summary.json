@@ -1,0 +1,18 @@
+{
+  "definition": "Euclidean distance in the 15-dimensional input space of ane.features.featurize, each feature min-max scaled to the 36 cycle-1 training compositions",
+  "training_nn_distance": {
+    "median": 0.174,
+    "max": 1.163
+  },
+  "fe_mn_cycle1_candidates": {
+    "labels": [
+      "Fe0.45Mn0.25Ga0.09Al0.19Pt0.02",
+      "Fe0.46Mn0.24Ga0.16Al0.12Pt0.02",
+      "Fe0.50Mn0.25Ga0.02Al0.23"
+    ],
+    "nn_distance_min": 0.928,
+    "nn_distance_max": 1.149,
+    "max_S_ANE_of_two_nearest_training_entries": 1.361
+  },
+  "largest_nn_distance_among_other_cycle1_candidates": 0.687
+}

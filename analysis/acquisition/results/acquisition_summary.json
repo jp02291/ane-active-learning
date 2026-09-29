@@ -1,7 +1,7 @@
 {
   "input": "data/data.csv",
   "input_sha256": "94e14db34940f1c74967c2c6d7a5627f1f510baa57b63b2b498750f9fd81c987",
-  "features": "ane.features.featurize (Supplementary Table S8(a))",
+  "features": "ane.features.featurize (Supplementary Table S5(a))",
   "rng_base": 20250101,
   "configurations": {
     "batch1": {
@@ -10,7 +10,7 @@
       "batch": 1,
       "cycles": 25,
       "seeds": 50,
-      "note": "Supplementary Fig. S5(a): unit batch size from the full initial dataset",
+      "note": "Supplementary Fig. S2(a): unit batch size from the full initial dataset",
       "output": "benchmark_batch1.csv",
       "output_sha256": "0c76e4ba3b7733e9e25636f8739daf5cad7283eecaf84c1199339a182a3c89fe",
       "pool_optimum": 0.3591703782490195,
@@ -47,7 +47,7 @@
       "batch": 5,
       "cycles": 5,
       "seeds": 50,
-      "note": "Supplementary Fig. S5(b, c): randomized starting data",
+      "note": "Supplementary Fig. S2(b) and the hypervolume in its legend: randomized starting data",
       "output": "benchmark_robust.csv",
       "output_sha256": "409241d7de02f15014c148ef5cbd94df734e66c1715573bd5661be278aa03b1d",
       "pool_optimum": 0.3591703782490195,
@@ -84,7 +84,7 @@
       "batch": 1,
       "cycles": 25,
       "seeds": 50,
-      "note": "Supplementary Note S1: the same comparison with the 13 reconstructed literature entries removed from the training set",
+      "note": "Supplementary Fig. S2 legend and Methods: the same comparison with the 13 reconstructed literature entries removed from the training set",
       "output": "benchmark_measured_only.csv",
       "output_sha256": "aef4231c97c5b7e2e2dc3d2971bf9cb638a63e0b78944677cdb720bb28e13877",
       "pool_optimum": 0.3591703782490195,

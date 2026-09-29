@@ -8,7 +8,7 @@
 #
 # SELECTED SCENARIO
 #   The internal cross-validation criterion retained augmentation with n = 200 synthetic samples
-#   in this cycle (Supplementary Table S5). The surrogate and selection paths
+#   in this cycle (Supplementary Table S8). The surrogate and selection paths
 #   below therefore point at that scenario, so that stages 3 and 4 build the
 #   ensemble the campaign actually used. Stage 2 still evaluates every scenario
 #   in gan.generated_sizes and writes scenario_summary.csv; a fresh search may

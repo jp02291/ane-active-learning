@@ -1,4 +1,4 @@
-# Surrogate-model benchmark (Supplementary Note S2, Fig. S6)
+# Surrogate-model benchmark (Supplementary Note S5, Fig. S5)
 
 Five regressors under one protocol, to show that the DNN surrogate is not an
 arbitrary choice.
@@ -6,7 +6,7 @@ arbitrary choice.
 ```bash
 python run_benchmark.py                    # full search, hours
 python run_benchmark.py --reuse-params results   # refit the deposited choice, minutes
-python plot_fig_s6.py
+python plot_fig_s5.py
 ```
 
 ## Protocol
@@ -84,9 +84,9 @@ results/
 ├── cv_metrics_summary.csv        mean and SD over the nine splits
 ├── held_out_test_metrics.csv     MAE, RMSE, R2 on the nine held-out samples
 ├── held_out_test_predictions.csv per-sample predictions from all five models
-├── fig_S6.png / fig_S6.pdf       Supplementary Fig. S6
+├── fig_S5.png / fig_S5.pdf       Supplementary Fig. S5, drawn by plot_fig_s5.py
 └── model_comparison_cv.png       a diagnostic emitted by the run: the same
-                                  cross-validation MAEs plus R2. Not Fig. S6.
+                                  cross-validation MAEs plus R2. Not Fig. S5.
 ```
 
 ## Environment

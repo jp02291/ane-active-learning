@@ -1,7 +1,7 @@
 # Closed-loop active learning for anomalous Nernst heat-flux sensor alloys
 
-Code and data accompanying *Discovery of High-Sensitivity Heat-Flux Sensor
-Materials via Active Learning*.
+Code and data accompanying *Discovery of high-sensitivity heat-flux sensor
+materials via active learning*.
 
 The framework searches an eight-element alloy space for compositions that
 maximize the material-level heat-flux sensitivity |*S*<sub>ANE</sub>| / κ. At
@@ -14,7 +14,8 @@ and hands ten of them to synthesis. Measurements return and the loop repeats.
 ## Installation
 
 Download and unpack the archive at
-[https://doi.org/10.5281/zenodo.22764250](https://doi.org/10.5281/zenodo.22764250), then
+[https://doi.org/10.5281/zenodo.22764249](https://doi.org/10.5281/zenodo.22764249), which
+resolves to the latest version, then
 
 ```bash
 cd ane-active-learning
@@ -30,15 +31,16 @@ shortens generator training but is not required.
 Verify the installation:
 
 ```bash
-pytest -q          # 243 passed, 1 skipped
+pytest -q          # 257 passed, 1 skipped
 ```
 
 What that checks, and what it does not. The suite is a regression test on the
 deterministic parts: featurization, the physics filters, generated-sample
 filtering and k-center selection, ensemble pruning, Pareto ranking, the
 scenario-ranking criterion, the per-cycle data cutoffs, the Fig. 4(d)
-projection, the Fig. 6(d) disorder parameters, and the two comparisons under
-`analysis/` that the supplement reports. Network training
+projection, the Fig. 6(d) disorder parameters, the input-space distances the
+Discussion quotes, the seed-variability table of Supplementary Note S2, and the
+two comparisons under `analysis/` that the supplement reports. Network training
 itself is not covered -- no TensorFlow model is fitted anywhere in the suite --
 so a green run means the surrounding logic is unchanged, not that the published
 results have been reproduced.
@@ -87,11 +89,14 @@ analysis/    the published figures that are not produced by a pipeline stage.
              a cycle.
 ├── pca/          Fig. 4(d), the biplot of the 30 nominated compositions
 ├── bootstrap/    Fig. 3, the paired percentile bootstrap of the two branches
-├── benchmark/    Supplementary Note S2 and Fig. S6, five regressors compared
+├── benchmark/    Supplementary Note S5 and Fig. S5, five regressors compared
 │                 under one protocol on the cycle-1 partition
-├── acquisition/  Supplementary Fig. S5, the four acquisition rules replayed
-│                 on the measured pool, and the Note S1 repeat without the
-│                 13 reconstructed literature entries
+├── acquisition/  Supplementary Fig. S2, the four acquisition rules replayed
+│                 on the measured pool, its repeat without the 13
+│                 reconstructed literature entries, and the hypervolume that
+│                 its legend summarizes
+├── input_space/  the distances in the model input space quoted in the
+│                 Discussion
 ├── baseline/     conditional random and diversity-only acquisition baselines
 ├── disorder/     Fig. 6(d) disorder parameters and the Fig. 6 source data
 └── robustness_checks/  nested branch comparison and conditional baselines
@@ -322,7 +327,7 @@ scikit-learn 1.7.2, pandas 2.3.3, joblib 1.5.2, PyYAML 6.0.3, h5py 3.15.1 and
 xgboost 2.1.4.
 The environment is identified rather than assumed -- a surviving model file
 records Keras 3.12.0 in its root attributes, the environment reports the same,
-and that model's hyperparameters match Supplementary Table S5.
+and that model's hyperparameters match Supplementary Table S8.
 
 ---
 
@@ -362,15 +367,18 @@ recovered set passes.
 
 ## Citation
 
-This deposit is archived at [10.5281/zenodo.22764250](https://doi.org/10.5281/zenodo.22764250); see `CITATION.cff`.
+This version is archived at [10.5281/zenodo.23027635](https://doi.org/10.5281/zenodo.23027635); the
+concept DOI [10.5281/zenodo.22764249](https://doi.org/10.5281/zenodo.22764249) always resolves to
+the latest version. See `CITATION.cff`.
 
 ```bibtex
 @software{ane_active_learning,
-  title  = {Code and data for: Discovery of High-Sensitivity Heat-Flux Sensor Materials via Active Learning},
+  title  = {Code and data for: Discovery of high-sensitivity heat-flux sensor materials via active learning},
   author = {Park, Jinho and Jang, Byungkwan},
   year   = {2026},
-  doi    = {10.5281/zenodo.22764250},
-  url    = {https://doi.org/10.5281/zenodo.22764250}
+  version = {1.1.0},
+  doi    = {10.5281/zenodo.23027635},
+  url    = {https://doi.org/10.5281/zenodo.23027635}
 }
 ```
 

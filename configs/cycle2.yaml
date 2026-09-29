@@ -8,8 +8,8 @@
 #
 # SELECTED SCENARIO
 #   The internal cross-validation criterion retained the real-only branch (no synthetic samples)
-#   in this cycle (Supplementary Table S5). The augmented branch it was compared
-#   against, and the one plotted as "w/ Aug" in Fig. 3, used n = 200 synthetic
+#   in this cycle (Supplementary Table S8). The augmented branch it was compared
+#   against, and the one labeled "Augmented" in Fig. 3(a), used n = 200 synthetic
 #   samples -- the same size selected in cycles 1 and 3. The surrogate and selection paths
 #   below therefore point at that scenario, so that stages 3 and 4 build the
 #   ensemble the campaign actually used. Stage 2 still evaluates every scenario

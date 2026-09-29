@@ -10,7 +10,7 @@ Three things are pinned here.
 
 Equivalence. The campaign applied the Umklapp exponential with a positive
 exponent and gamma = 2.0, kept in `physics.py` as the legacy pair;
-Supplementary Note S1 quotes the standard negative exponent and Table S6
+Methods quote the standard negative exponent and Supplementary Table S6
 reports gamma = 3.12. These are the same calculation at a
 single temperature, and the first tests assert it numerically. Without this, a
 reader comparing the two sees a contradiction where there is none.
@@ -76,7 +76,7 @@ def test_si_equivalent_gamma_is_the_documented_ratio() -> None:
 
 
 def test_both_parameterisations_give_the_same_lattice_conductivity(entries: pd.DataFrame) -> None:
-    """The sign in Supplementary Note S1 and the campaign's sign are one calculation."""
+    """The sign in Methods and the campaign's sign are one calculation."""
     for _, row in entries.iterrows():
         comp = _composition(row)
         as_reported = kappa_lattice(comp)  # defaults: the reported form
@@ -120,7 +120,7 @@ def test_lattice_term_matches_the_model(entries: pd.DataFrame) -> None:
     """The deposited kappa_L is what `kappa_lattice` returns for that composition.
 
     Without this the suite could pass while the reconstruction drifted away from
-    the deposited column and from Supplementary Note S1.
+    the deposited column and from Methods.
     """
     for _, row in entries.iterrows():
         assert kappa_lattice(_composition(row)) == pytest.approx(

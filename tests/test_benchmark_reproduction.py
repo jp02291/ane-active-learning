@@ -1,4 +1,4 @@
-"""The Note S2 / Fig. S6 benchmark must stay reproducible and stay comparable.
+"""The Note S5 / Fig. S5 benchmark must stay reproducible and stay comparable.
 
 `analysis/benchmark/run_benchmark.py` compares five regressors under one
 protocol. The comparison only means anything while every model sees the same
@@ -143,7 +143,7 @@ def test_summary_is_the_mean_of_the_folds(cv_summary, cv_folds) -> None:
 
 
 def test_no_single_model_wins_both_evaluations(cv_summary, test_metrics) -> None:
-    """Note S2 rests on this. If it ever stops holding, the note needs rewriting."""
+    """Note S5 rests on this. If it ever stops holding, the note needs rewriting."""
     cv_best = {
         t: cv_summary[cv_summary.target == t].sort_values("MAE_mean").model.iloc[0]
         for t in PUBLISHED_CV

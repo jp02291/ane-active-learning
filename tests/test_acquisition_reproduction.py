@@ -1,4 +1,4 @@
-"""The Supplementary Fig. S5 comparison must stay reproducible and stay honest.
+"""The Supplementary Fig. S2 comparison must stay reproducible and stay honest.
 
 `analysis/acquisition/run_benchmark.py` replays the campaign on the measured
 pool for four acquisition rules. Three things about it can break without
@@ -112,7 +112,7 @@ def test_pool_is_the_deposited_dataset(mod) -> None:
 
 
 def test_optimum_survives_dropping_the_reconstructed_entries(mod) -> None:
-    """Note S1 only means something if both pools share the same target."""
+    """The repeat without the reconstructed entries (Fig. S2 legend) needs the same target."""
     measured = mod.load_pool("measured")
     assert (measured.S_ANE.abs() / measured.kxx).max() == pytest.approx(
         POOL_OPTIMUM, rel=1e-12

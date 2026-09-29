@@ -1,13 +1,15 @@
-# Acquisition-rule comparison (Supplementary Fig. S5)
+# Acquisition-rule comparison (Supplementary Fig. S2)
 
 This script replays the campaign on the measured pool and asks how quickly each
 of four acquisition rules would have reached the best composition in it. It
-produces the numbers behind Supplementary Fig. S5 and the repeat reported in
-Supplementary Note S1.
+produces the numbers behind Supplementary Fig. S2, the repeat without the 13
+reconstructed literature entries that the Fig. S2 legend and Methods report,
+and the dominated hypervolume that the legend summarizes.
 
 ```bash
 python run_benchmark.py
 python run_benchmark.py --only batch1
+python plot_fig_s2.py
 ```
 
 ## The rules
@@ -25,13 +27,19 @@ All four run on the same Gaussian-process surrogate and the same
 kappa is modeled on a log scale so the posterior cannot place mass on
 non-positive thermal conductivity, which would make 1/kappa diverge.
 
+With one composition per step, `gp_pareto_unc` reduces to taking the highest
+predicted \|S_ANE\|/kappa, so U affects the choice only when compositions are
+chosen five at a time. `gp_ratio_ucb` and `gp_ehvi` take their top-ranked
+compositions without batch diversification, and none of the rules applies the
+campaign's diversity constraint.
+
 ## The three configurations
 
 | name | starting data | batch | cycles | reported in |
 |---|---|---|---|---|
-| `batch1` | all 45 cycle-0 rows | 1 | 25 | Fig. S5(a) |
-| `robust` | a fresh random 80% of the cycle-0 rows per repetition | 5 | 5 | Fig. S5(b, c) |
-| `measured_only` | the 32 measured cycle-0 rows | 1 | 25 | Note S1 |
+| `batch1` | all 45 cycle-0 rows | 1 | 25 | Fig. S2(a) |
+| `robust` | a fresh random 80% of the cycle-0 rows per repetition | 5 | 5 | Fig. S2(b), and the hypervolume in its legend |
+| `measured_only` | the 32 measured cycle-0 rows | 1 | 25 | Fig. S2 legend and Methods |
 
 Each runs 50 repetitions. Two of the rules are deterministic once the starting
 set is fixed: `gp_ratio_ucb` and `gp_pareto_unc` rank the pool from the
@@ -39,9 +47,9 @@ posterior alone, so at `cycle0_subsample = 1.0` all 50 repetitions follow the
 same path. `gp_ehvi` draws Monte-Carlo samples from the posterior and `random`
 samples the pool, so both vary even from a fixed start. Lowering the fraction
 to 0.8 in `robust` makes all four vary through the data as well, which is what
-produces the bands in panel (c). The same subset is used by every rule at a given repetition, so
-the comparison stays paired, and compositions acquired during the campaign are
-never placed in the starting set.
+produces the bands in `results/hypervolume_robust.png`. The same subset is used
+by every rule at a given repetition, so the comparison stays paired, and
+compositions acquired during the campaign are never placed in the starting set.
 
 ## Acquisitions needed to reach the pool optimum
 
@@ -55,7 +63,8 @@ Median over the 50 repetitions, counted from the starting set.
 | `random` | 8.5 | 15 | 8.5 |
 
 Under `robust`, the repetitions that reached the pool optimum at all were
-50/50, 43/50, 30/50 and 35/50 in the order above.
+50/50, 43/50, 30/50 and 35/50 in the order above, the 100%, 86%, 60% and 70% of
+Fig. S2(b).
 
 Random is identical in `batch1` and `measured_only` by construction: it does
 not use the surrogate, so removing the 13 reconstructed entries from the
@@ -68,7 +77,7 @@ consistency check on the harness, not a result.
 campaign measured, and the campaign selected them with `gp_pareto_unc`. The
 comparison therefore reports how the rules ordered a fixed set that one of them
 assembled. It is not a general ranking of acquisition functions, and
-Supplementary Fig. S5 states that bound explicitly.
+Supplementary Fig. S2 states that bound explicitly.
 
 **The pool contains the best composition among only 25 candidates.** With a
 target that dense, the number of acquisitions needed is a coarse measure and
@@ -82,7 +91,7 @@ entries whose kappa was reconstructed rather than measured.
 
 Features come from `ane.features.featurize`, so this baseline and the campaign
 surrogate see identical inputs: the same ILR construction, the same element
-order, and the element properties of Supplementary Table S8(a). That shared
+order, and the element properties of Supplementary Table S5(a). That shared
 source is load-bearing: a separate element table here would change the
 surrogate and every number above without changing anything a reader can see, so
 `tests/test_acquisition_reproduction.py` pins where the descriptors come from.
@@ -94,13 +103,20 @@ results/
 ├── benchmark_batch1.csv         one row per rule, repetition and budget
 ├── benchmark_robust.csv
 ├── benchmark_measured_only.csv
-└── acquisition_summary.json     inputs, SHA-256, configurations, and the
-                                 acquisitions-to-optimum table above
+├── acquisition_summary.json     inputs, SHA-256, configurations, and the
+│                                acquisitions-to-optimum table above
+├── fig_S2.png / fig_S2.pdf      Supplementary Fig. S2, drawn by plot_fig_s2.py
+└── hypervolume_robust.png/.pdf  the dominated hypervolume of the `robust` runs,
+                                 summarized in the Fig. S2 legend
 ```
 
 Each CSV carries `strategy`, `seed`, `n_exp`, `best_ratio` (the best
 \|S_ANE\|/kappa characterized so far) and `hv` (the dominated hypervolume of the
-characterized set), which is everything the three panels plot.
+characterized set), which is everything the two figures plot.
+
+The published Fig. S2 was redrawn in external plotting software from these
+CSVs; `fig_S2.png` is the reference rendering produced directly by
+`plot_fig_s2.py`.
 
 ## Environment
 

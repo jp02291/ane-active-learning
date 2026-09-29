@@ -1,8 +1,8 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite both the software and the paper."
-title: "Code and data for: Discovery of High-Sensitivity Heat-Flux Sensor Materials via Active Learning"
+title: "Code and data for: Discovery of high-sensitivity heat-flux sensor materials via active learning"
 abstract: >-
-  Code and data accompanying the manuscript "Discovery of High-Sensitivity Heat-Flux Sensor Materials via Active Learning". Searches an
+  Code and data accompanying the manuscript "Discovery of high-sensitivity heat-flux sensor materials via active learning". Searches an
   eight-element alloy space for compositions maximizing the material-level
   heat-flux sensitivity |S_ANE| / kappa, through cycles of generative
   augmentation, surrogate training, Pareto-based candidate selection and
@@ -24,10 +24,10 @@ contact:
     affiliation: "Department of Mechanical Engineering, Pohang University of Science and Technology (POSTECH)"
     email: hgjin@postech.ac.kr
 
-version: 1.0.0
+version: 1.1.0
 license: MIT
-date-released: "2026-09-15"
-doi: "10.5281/zenodo.22764250"
+date-released: "2026-09-29"
+doi: "10.5281/zenodo.23027635"
 keywords:
   - active learning
   - anomalous Nernst effect

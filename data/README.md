@@ -69,13 +69,13 @@ the retention of the top 15% that makes the partition target informed. See
 ## `literature_reconstruction.csv`
 
 The 13 literature entries of the initial dataset, whose thermal conductivity was
-not reported and was reconstructed with the Callaway-Klemens model of
-Supplementary Note S1. One row per entry: composition, reference, the reported
+not reported and was reconstructed with the Callaway-Klemens model described in
+Methods (see also Supplementary Note S4). One row per entry: composition, reference, the reported
 anomalous Nernst coefficient, the lattice term, and the total.
 
 `kappa_L` is the lattice term returned by `ane.physics.kappa_lattice` for each
 composition, with the parameters of Supplementary Table S6. `kappa_total` is the
 reconstructed thermal conductivity used as the label for those rows, formed as
-described in Supplementary Note S1; it is the value that appears in `data.csv`
+described in Methods; it is the value that appears in `data.csv`
 and in Supplementary Table S1. Those rows are not confined to the training
 side: one falls in the cycle-2 held-out set and two in the cycle-3 set.

@@ -1433,7 +1433,7 @@ def run_scenarios(
     fit best.
 
     The score remains noisy. Scenarios separated by less than the between-fold
-    spread should not be treated as ordered -- Supplementary Note S4 quantifies
+    spread should not be treated as ordered -- Supplementary Note S2 quantifies
     the comparable variation produced by the training seed alone.
     """
     from tensorflow.keras import backend as K
