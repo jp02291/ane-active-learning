@@ -1,11 +1,8 @@
-"""Scenario selection must use the score the manuscript defines.
+"""Scenario summaries must not replace the campaign's manual choice.
 
-Methods defines the trial objective as the mean over five folds of each fold's
-minimum validation MSE, and the scenario with the lowest cross-validation loss
-is the one carried forward. An earlier revision of `surrogate.py` ranked
-scenarios by the single-fold loss that `select_final_epoch` produces while
-choosing the epoch count, which is a different quantity. These tests pin the
-distinction so it cannot return.
+CV still tunes hyperparameters within each scenario. The researchers reviewed
+both held-out property MAEs manually, and stage 3 uses the configured scenario.
+Summary row order must not imply a winner under any metric.
 """
 
 from __future__ import annotations
@@ -37,17 +34,8 @@ def test_tune_scenario_records_both_scores_separately() -> None:
     )
 
 
-def test_scenarios_are_ranked_by_the_cv_score() -> None:
-    src = inspect.getsource(surrogate.run_scenarios)
-    assert 'sort_values("optuna_cv_score"' in src, (
-        "scenario ranking must use the five-fold CV score, not the single-fold "
-        "loss from select_final_epoch"
-    )
-    assert 'sort_values("final_epoch_fold_loss"' not in src
-
-
 def test_cv_objective_is_the_mean_of_per_fold_minima() -> None:
-    """The score being ranked on has to be the one Methods defines."""
+    """Within-scenario HPO still averages per-fold minimum losses."""
     src = inspect.getsource(surrogate.cv_objective_loss)
     assert "np.nanmin" in src, "each fold contributes its minimum validation loss"
     assert "np.mean(fold_losses)" in src, "the objective is the mean over folds"
@@ -57,21 +45,39 @@ def test_cv_objective_is_the_mean_of_per_fold_minima() -> None:
     "column", ["optuna_cv_score", "final_epoch_fold_loss", "optimal_epoch"]
 )
 def test_summary_columns_are_documented(column: str) -> None:
-    """Every column the ranking depends on is named in the docstring."""
+    """The tuning diagnostics remain documented after removing ranking."""
     assert column in surrogate.run_scenarios.__doc__
 
 
-def test_ranking_order_follows_the_cv_score_not_the_fold_loss() -> None:
-    """A case where the two criteria disagree must resolve to the CV score."""
-    rows = [
-        {"scenario": "dnn_base", "optuna_cv_score": 0.0100, "final_epoch_fold_loss": 0.0300},
-        {"scenario": "dnn_gan_n200", "optuna_cv_score": 0.0200, "final_epoch_fold_loss": 0.0050},
-    ]
-    ranked = pd.DataFrame(rows).sort_values("optuna_cv_score", ascending=True)
-    assert ranked.iloc[0]["scenario"] == "dnn_base"
+@pytest.mark.parametrize("reverse", [False, True])
+def test_summary_preserves_execution_order_without_selecting_a_winner(
+    monkeypatch, tmp_path, reverse
+) -> None:
+    """Exercise the real summary writer with competing diagnostic/MAE rankings."""
+    from types import SimpleNamespace
+    from tensorflow.keras import backend as K
 
-    misranked = pd.DataFrame(rows).sort_values("final_epoch_fold_loss", ascending=True)
-    assert misranked.iloc[0]["scenario"] == "dnn_gan_n200"
+    rows = [
+        {"scenario": "dnn_base", "optuna_cv_score": 0.01,
+         "final_epoch_fold_loss": 0.03, "test_mae_kxx": 4.0,
+         "test_mae_S_ANE": 0.9},
+        {"scenario": "dnn_gan_n200", "optuna_cv_score": 0.02,
+         "final_epoch_fold_loss": 0.005, "test_mae_kxx": 2.0,
+         "test_mae_S_ANE": 0.5},
+    ]
+    if reverse:
+        rows.reverse()
+    configs = [SimpleNamespace(artifact_dir=r["scenario"]) for r in rows]
+    by_name = {r["scenario"]: r for r in rows}
+    monkeypatch.setattr(surrogate, "tune_scenario",
+                        lambda cfg, verbose: by_name[cfg.artifact_dir].copy())
+    monkeypatch.setattr(K, "clear_session", lambda: None)
+    output = tmp_path / "scenario_summary.csv"
+    summary = surrogate.run_scenarios(configs, output, verbose=False)
+    expected = pd.DataFrame(rows)
+    pd.testing.assert_frame_equal(summary, expected)
+    pd.testing.assert_frame_equal(pd.read_csv(output), expected)
+    assert [cfg.artifact_dir for cfg in configs] == expected.scenario.tolist()
 
 
 def test_cv_objective_needs_every_fold() -> None:

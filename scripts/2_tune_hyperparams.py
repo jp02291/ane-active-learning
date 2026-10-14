@@ -5,10 +5,12 @@
 
 Runs one search per scenario -- each generated set plus a real-only control --
 and writes `best_params.json`, `final_best_model.h5` and `metrics_test.json`
-into that scenario's artifact directory, then ranks the scenarios in
-`scenario_summary.csv`, ranked on `optuna_cv_score` -- the five-fold
-cross-validation score. The scenario at the top of that ranking is the one
-whose `best_params.json` stage 3 should read.
+into that scenario's artifact directory. `scenario_summary.csv` preserves
+execution order without ranking or choosing a scenario. CV tunes parameters
+within each scenario. The historical campaign choice was made manually from
+the held-out MAEs of both properties and is pinned in each cycle config.
+Stage 3 reads that configured scenario, not the first summary row. Legacy
+`test` file names refer to the campaign's scenario-selection validation set.
 
 Long: a hundred trials over five folds, for six scenarios. Use `--scenario` to
 run one at a time.

@@ -5,8 +5,9 @@ materials via active learning*.
 
 The framework searches an eight-element alloy space for compositions that
 maximize the material-level heat-flux sensitivity |*S*<sub>ANE</sub>| / κ. At
-each cycle it trains a surrogate on the measured data, decides whether
-generatively augmented data improve prediction, ranks candidate compositions,
+each cycle it trains real-only and augmented surrogates. The researchers
+manually chose a scenario after reviewing the held-out MAEs of both properties.
+The selected surrogate ranks candidate compositions,
 and hands ten of them to synthesis. Measurements return and the loop repeats.
 
 ---
@@ -31,13 +32,13 @@ shortens generator training but is not required.
 Verify the installation:
 
 ```bash
-pytest -q          # 257 passed, 1 skipped
+pytest -q
 ```
 
 What that checks, and what it does not. The suite is a regression test on the
 deterministic parts: featurization, the physics filters, generated-sample
 filtering and k-center selection, ensemble pruning, Pareto ranking, the
-scenario-ranking criterion, the per-cycle data cutoffs, the Fig. 4(d)
+scenario-summary behavior and recorded campaign choices, the per-cycle data cutoffs, the Fig. 4(d)
 projection, the Fig. 6(d) disorder parameters, the input-space distances the
 Discussion quotes, the seed-variability table of Supplementary Note S2, and the
 two comparisons under `analysis/` that the supplement reports. Network training
@@ -144,8 +145,12 @@ the partition and `artifacts/cycleN/` for everything else.
 The selected scenario is pinned in each cycle configuration -- `dnn_gan_n200`
 for cycles 1 and 3, `dnn_base` for cycle 2 -- so stages 3 and 4 build the
 ensemble the campaign used. Stage 2 still evaluates every scenario and writes
-`scenario_summary.csv`; a fresh search may rank them differently, which is why
-the campaign's choice is pinned rather than read back from that file.
+`scenario_summary.csv` in execution order, without an automatic ranking or
+winner. The campaign choices were manual: the researchers reviewed the held-out
+MAEs of kappa and |S_ANE| together. Both targets favored the same branch in each
+reported cycle. Stage 3 reads the configured artifact directory, not the first
+row of the summary. A fresh experiment requires an explicit choice of that
+directory after reviewing its validation results.
 
 **Stage 1 depends on stage 2 of the same cycle.** Its consistency filter needs
 `f_ref`, a surrogate trained on the real data of the cycle being run
@@ -169,13 +174,13 @@ Stage 4 emits the ten compositions for the next round of synthesis. Their
 measured properties are appended to `data/data.csv` and the cycle repeats.
 
 **Two models, two jobs.** Stage 2 ends by refitting a single model on the whole
-training split for a cross-validated number of epochs; that model's test
-accuracy is what the manuscript reports. Stage 3 trains a separate sixty-member
+training split for a cross-validated number of epochs; that model's held-out
+validation accuracy is what Fig. 3 reports. Stage 3 trains a separate sixty-member
 ensemble from the same hyperparameters and prunes it. The ensemble is not a
 more accurate predictor and is not reported as one -- it exists so that stage 4
-has a measure of disagreement to explore along. Stage 2 also ranks the
-augmentation scenarios, and the winner's `best_params.json` is what stage 3
-reads.
+has a measure of disagreement to explore along. Stage 2 records the results
+for each augmentation scenario without selecting one. Stage 3 reads
+`best_params.json` from the scenario explicitly configured by the researcher.
 
 ---
 
@@ -238,29 +243,39 @@ factor is there. Checkpoints are accepted only when adding the synthetic data
 lowers a proxy model's cross-validated error *and* beats the same comparison
 with the synthetic labels shuffled. See `ane.augment`.
 
-**Scenario selection uses the five-fold score, and the campaign's own scores
-were not kept.** Scenarios are ranked on `optuna_cv_score` in
-`scenario_summary.csv` -- the objective of the winning Optuna trial, which is
-the mean over folds of each fold's minimum validation loss. That is the
-criterion the manuscript defines. `final_epoch_fold_loss` sits beside it in the
-same file and is a minimum over folds taken while choosing the epoch count; it
-is a diagnostic, and ranking on it selects scenarios on whichever fold fit
-best. What the code cannot establish is what the campaign itself ranked on: the
-per-cycle cross-validation scores were not retained, so the recorded branch
-choices cannot be re-derived from them.
+**Campaign scenario selection was manual and used held-out validation
+performance.** As clarified by the campaign author, the researchers reviewed
+the MAEs of kappa and |S_ANE| together rather than applying an automatic CV,
+mean-R2, or FoM ranking. Both property MAEs favored augmentation in cycles 1
+and 3 and real-only in cycle 2. The selected augmented scenarios used 200
+synthetic samples. These recorded choices remain pinned in the cycle configs.
+Earlier package documentation incorrectly described them as CV-selected, and
+stage 2 sorted its summary by CV score; that automatic sorting has been removed.
 
-**The cross-validation used for scenario selection is not strictly
-out-of-fold.** The generator is trained once per cycle on the full training
-split, and the resulting synthetic samples are shared across the folds used for
-hyperparameter and augmentation-size selection, so fold-validation samples
-contributed indirectly to the generative model. The bias acts in favor of the
-augmented branch and therefore does not inflate the central observation, which
-is that the augmented branch was *not* always preferred. All performance values
-reported in the manuscript were computed on the held-out test set. No held-out
-target value enters generator training, filtering, scenario selection or
-hyperparameter search. The held-out compositions are read once more, in the
-duplicate-exclusion step of `ane.augment`, so that a generated sample cannot
-coincide with one of them; no property of those rows is used there.
+`optuna_cv_score` remains the objective of the best hyperparameter trial
+within each scenario: the mean over folds of each fold's minimum validation
+loss. `final_epoch_fold_loss` is the separate diagnostic used to choose the
+refit epoch count. Neither quantity selects a scenario. The summary preserves
+execution order and leaves the decision to the researcher; no scalar rule or
+tie-breaking rule has been reconstructed from the historical manual choices.
+
+**The held-out campaign set is a scenario-selection validation set, not an
+independent test set.** Its target values informed the manual scenario choice,
+although they did not enter generator training, filtering, or the internal
+hyperparameter search. Legacy file names (`test.csv`, `metrics_test.json`,
+`test_predictions.csv`) and `test_*` summary fields are retained for artifact
+compatibility; in the campaign comparison they refer to this validation set.
+Bootstrap intervals from these data do not correct for scenario selection.
+The held-out compositions are also read for duplicate exclusion in
+`ane.augment`; target properties are not used in that exclusion step.
+
+**The internal HPO cross-validation is not strictly out-of-fold with respect
+to generation.** The generator is trained once on the full cycle-training
+split, and the resulting synthetic samples are shared across HPO folds. Thus,
+inner validation rows contributed indirectly to generation. These internal
+scores are tuning diagnostics, not independent estimates of augmentation
+benefit. The separately deposited retrospective nested comparison has its own
+scope and limitations, described in `analysis/robustness_checks/README.md`.
 
 ---
 
@@ -345,10 +360,18 @@ configuration deliberately departs from the surviving notebook
 follows it throughout and is pinned value by value
 (`test_gan_config_matches_the_notebook_everywhere`).
 
-The hyperparameters and scenario scores the campaign's own runs produced.
-`best_params.json` and `scenario_summary.csv` were not archived for cycles 2
-and 3, so a reader can re-run the workflow but cannot check the recorded branch
-choices against the runs that made them.
+The complete hyperparameter-search and per-scenario records from the
+campaign's own runs were not retained. In particular, `best_params.json` and
+`scenario_summary.csv` were not archived for cycles 2 and 3. The deposited
+Fig. 3 prediction records support the reported held-out branch comparisons,
+but they do not reconstruct every candidate scenario or a historical CV ranking.
+The scenario choices were manual, as described above.
+
+`RELEASE_VERIFICATION.json` and `SHA256_MANIFEST.csv` describe the original
+v1.1.0 deposit. They are retained as historical records, not regenerated to
+make the correction appear part of that release. New working-tree edits will
+therefore differ from that original manifest. See `CHANGELOG.md` for the
+unreleased correction; this change does not republish the Zenodo deposit.
 
 The partitions themselves are deposited for all three cycles. Cycle 1's was
 retained. The cycle 2 and cycle 3 membership was recovered from the Fig. 3

@@ -33,10 +33,11 @@ transformed with them, never fit on. That is the claim made in Methods (active
 learning with ensemble neural networks) and it holds here.
 
 Each member's own validation split is carved out of the training data *after*
-scaling, so the fitted min and max saw those rows. This affects member pruning
-slightly -- validation MAE is marginally optimistic -- but not any reported
-metric: the test-set evaluation at the end uses the same train-fitted scalers
-and touches `test.csv` only through `transform`.
+scaling, so the fitted min and max saw those rows. This can make the internal
+member-pruning validation MAE optimistic. The held-out evaluation instead uses
+train-fitted scalers and touches `test.csv` only through `transform`. In the campaign,
+held-out errors informed manual scenario selection, so these are validation
+metrics rather than independent test estimates of the chosen scenario.
 
 `tests/test_surrogate_parity.py` checks the deterministic parts against the
 original notebook. Training itself is not compared; TensorFlow does not promise
@@ -614,10 +615,13 @@ def save_selected_models(selected: pd.DataFrame, cfg: SurrogateConfig) -> list[s
 def evaluate_on_test(
     model_paths: list[str], cfg: SurrogateConfig, verbose: bool = True
 ) -> dict[str, Any]:
-    """Evaluate the pruned ensemble on the held-out test split.
+    """Evaluate the pruned ensemble on the held-out campaign validation split.
 
-    These are the numbers reported in the manuscript. No held-out target value
-    enters generator training, hyperparameter search or member pruning. The
+    The function name and file names retain the legacy `test` terminology.
+    Fig. 3 uses the single-model refit metrics, not this ensemble evaluation.
+    No held-out target value enters generator training, hyperparameter search
+    or member pruning, but campaign held-out errors informed manual scenario
+    selection and are not independent test estimates. The
     compositions are read once more, in the duplicate-exclusion step of
     `ane.augment`, so that a generated sample cannot coincide with a held-out
     one; no property of those rows is used there.
@@ -1086,11 +1090,10 @@ def run_search(
     if not has_generated:
         best.setdefault("w_gen", cfg.w_gen_without_generated)
 
-    # The objective value of the winning trial IS the cross-validation score
-    # the manuscript defines -- the mean over folds of each fold's minimum
-    # validation MSE (`cv_objective_loss`). It is returned rather than
-    # discarded because it, and not the single-fold loss that
-    # `select_final_epoch` produces, is what ranks the scenarios.
+    # Retain the best hyperparameter trial's CV score as a tuning diagnostic.
+    # It is the mean of per-fold minimum validation losses, distinct from the
+    # single-fold loss used for final epoch selection. Neither score is an
+    # automatic scenario-selection rule.
     cv_score = float(study.best_value)
 
     with open(artifact / "best_params.json", "w", encoding="utf-8") as fh:
@@ -1137,9 +1140,8 @@ def select_final_epoch(
 
     The effect is confined to how long the final model trains. The loss
     returned here is reported as a diagnostic under `final_epoch_fold_loss` and
-    is deliberately not used to rank scenarios: that is done with the
-    cross-validation score defined in the manuscript, which `run_search`
-    returns.
+    is not used to rank scenarios. `run_search` separately returns the
+    within-scenario HPO score; campaign scenario selection was manual.
     """
     from sklearn.model_selection import KFold
     from tensorflow.keras import backend as K
@@ -1393,9 +1395,8 @@ def scenario_configs(
 ) -> list[SurrogateConfig]:
     """One configuration per augmentation scenario, plus the real-only branch.
 
-    The real-only scenario is the control the central claim rests on: it is
-    what "augmentation did not always win" is measured against, so it is not
-    optional and is always included.
+    The real-only scenario is always included as the comparison branch for
+    assessing augmentation. The returned order does not indicate preference.
     """
     from dataclasses import replace
 
@@ -1418,23 +1419,18 @@ def run_scenarios(
     summary_path: str | Path = "artifacts/scenario_summary.csv",
     verbose: bool = True,
 ) -> pd.DataFrame:
-    """Run every scenario and rank them by the cross-validation score.
+    """Evaluate every scenario and record results in execution order.
 
-    The ranking column is `optuna_cv_score`: the objective of the winning
-    Optuna trial, which is the mean over five folds of each fold's minimum
-    validation MSE. This is the criterion the manuscript defines, and it
-    decides which branch and which augmentation size are carried into the
-    ensemble stage.
+    No automatic ranking or scenario choice is made. During the campaign,
+    researchers manually reviewed held-out MAEs for kappa and |S_ANE| together;
+    both targets favored the same branch in each reported cycle. Stage 3 reads
+    the explicitly configured scenario, not the first row of this summary.
 
-    `final_epoch_fold_loss` and `optimal_epoch` are also written out. They come
-    from `select_final_epoch`, which takes a minimum over folds to decide how
-    long the final refit should run, and they are diagnostics only. Ranking by
-    `final_epoch_fold_loss` would select scenarios on the fold that happened to
-    fit best.
-
-    The score remains noisy. Scenarios separated by less than the between-fold
-    spread should not be treated as ordered -- Supplementary Note S2 quantifies
-    the comparable variation produced by the training seed alone.
+    `optuna_cv_score` records the within-scenario HPO objective.
+    `final_epoch_fold_loss` and `optimal_epoch` record the epoch-selection
+    diagnostic and refit duration. None of these fields selects a scenario.
+    Legacy `test_*` fields describe campaign held-out validation performance;
+    the scenario-selection data are not an independent test set.
     """
     from tensorflow.keras import backend as K
 
@@ -1446,12 +1442,12 @@ def run_scenarios(
         K.clear_session()
         gc.collect()
 
-    summary = pd.DataFrame(rows).sort_values("optuna_cv_score", ascending=True)
+    summary = pd.DataFrame(rows)
     summary_path = Path(summary_path)
     summary_path.parent.mkdir(parents=True, exist_ok=True)
     summary.to_csv(summary_path, index=False, encoding="utf-8-sig")
 
     if verbose:
-        print(f"\nwritten to {summary_path}")
+        print(f"\nwritten to {summary_path} (execution order; no automatic selection)")
         print(summary.to_string(index=False))
     return summary

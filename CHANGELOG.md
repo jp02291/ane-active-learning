@@ -1,5 +1,22 @@
 # Changelog
 
+## Unreleased - manual scenario-selection correction
+
+- Correct the account of the historical campaign: researchers manually
+  reviewed held-out kappa and |S_ANE| MAEs together; both targets favored the
+  same branch in each reported cycle. Internal CV tuned model parameters but
+  did not automatically choose the campaign scenario.
+- Remove CV sorting from the stage-2 scenario summary. Keep execution order,
+  all tuning diagnostics, and the explicit cycle-1/3 augmented and cycle-2
+  real-only configuration paths. No new scalar selection rule is introduced.
+- Explain that legacy `test` files/fields refer to scenario-selection
+  validation data in the campaign, and that bootstrap intervals do not correct
+  for selection. Clarify the earlier simplified nested audit's shared inner
+  synthetic pool, success-conditional comparison, and missing run artifacts.
+- Preserve campaign data, splits, metrics, model settings, original release
+  verification and manifest, and deposited nested outputs. This correction
+  does not rerun training or update the archived Zenodo release.
+
 ## 1.1.0 - 2026-09-29
 
 Aligns the archive with the revised manuscript and supplementary information.

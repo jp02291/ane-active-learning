@@ -10,6 +10,21 @@ included in this deposit.
 
 ## Nested augmentation comparison
 
+This is the earlier, simplified retrospective comparison deposited with v1.1.0,
+not a reconstruction of the campaign's manual held-out scenario choices. Its
+stored `nested_comparison_summary.json` records outer-fold-local generation
+with a synthetic pool shared across inner HPO folds. Thus outer rows were
+excluded, but generation was not repeated independently inside every inner
+HPO training fold. The deposited summaries alone cannot verify the full
+training implementation because its scripts and run artifacts are absent.
+
+The values below describe the original paired-success analysis. They exclude
+the failed augmented fold from paired metrics and are not a complete
+generation-failure-to-real-only fallback policy evaluation. This correction
+preserves the original numerical files; a later evaluation with different
+generation or fallback rules must be documented separately, not substituted
+under the same protocol label.
+
 The outer validation rows were sealed from generator training, filtering, HPO,
 and branch selection. Three root seeds and five outer folds were attempted.
 Fourteen of fifteen fold jobs produced a valid paired comparison; seed 42,
