@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased - manual scenario-selection correction
+## Unreleased - campaign selection correction and completed nested evaluation
 
 - Correct the account of the historical campaign: researchers manually
   reviewed held-out kappa and |S_ANE| MAEs together; both targets favored the
@@ -11,11 +11,15 @@
   real-only configuration paths. No new scalar selection rule is introduced.
 - Explain that legacy `test` files/fields refer to scenario-selection
   validation data in the campaign, and that bootstrap intervals do not correct
-  for selection. Clarify the earlier simplified nested audit's shared inner
-  synthetic pool, success-conditional comparison, and missing run artifacts.
-- Preserve campaign data, splits, metrics, model settings, original release
-  verification and manifest, and deposited nested outputs. This correction
-  does not rerun training or update the archived Zenodo release.
+  for selection.
+- Preserve campaign data, splits, metrics, model settings and the historical
+  release verification. Replace the obsolete simplified nested outputs with
+  the completed single-attempt, inner-fold-local evaluation, its frozen source,
+  raw results and independently reproducible MAE/R2 summaries. Include all 15
+  folds and failure fallback; exclude retry experiments. Retain the original
+  ancillary Adaptive records only as raw provenance, not SI comparison rows.
+- Regenerate the package manifest and add update verification. No training is
+  rerun for packaging, and the archived Zenodo release is not modified.
 
 ## 1.1.0 - 2026-09-29
 

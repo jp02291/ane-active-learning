@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "smoke": false,
+  "data_sha256": "94e14db34940f1c74967c2c6d7a5627f1f510baa57b63b2b498750f9fd81c987",
+  "code_sha256": "3b8541fa7879935a87ef4ecfa51e19ef2daf8b55e16b5a92586968a1fd7cbcdf",
+  "versions": {
+    "tensorflow": "2.18.0",
+    "keras": "3.8.0",
+    "optuna": "4.2.1",
+    "numpy": "1.26.4",
+    "scikit-learn": "1.7.2",
+    "pandas": "2.2.2",
+    "scipy": "1.13.1"
+  },
+  "python": "3.12.3 | packaged by conda-forge | (main, Apr 15 2024, 18:20:11) [MSC v.1938 64 bit (AMD64)]",
+  "dataset": "45 initial compositions, including 13 reconstructed thermal conductivities",
+  "outer_seeds": [
+    42,
+    2025,
+    314159
+  ],
+  "outer_folds": 5,
+  "retain_top_in_training": false,
+  "inner_folds": 5,
+  "hpo_trials_per_branch": 100,
+  "gan_epochs_max": 10000,
+  "synthetic_samples": 200,
+  "selection_metric": "deposited minimum fold validation scaled MSE (Keras loss includes L2)",
+  "evaluation_primary": "FoM MAE on directly measured outer rows",
+  "evaluation_secondary": [
+    "FoM MAE all rows",
+    "kappa MAE",
+    "S_ANE MAE",
+    "scaled MSE",
+    "invalid prediction rate"
+  ],
+  "augmentation": "fold-local generator, scalers, filter model, threshold, checkpoint and generation; filter HPO inside its allowed training subset",
+  "fallback": "inner generation rejection uses independently inner-trained tuned real-only reference; final generation rejection deploys final real-only; failures always retained",
+  "adaptive": "select WGAN only if its inner score is lower and final generation succeeds",
+  "epoch_rule": "preserve deposited best-fold epoch selection; do not use it to rank policies",
+  "differences_from_campaign": [
+    "strict inner-fold-local generation",
+    "no top-15% training retention",
+    "fixed NG=200",
+    "explicit tf.data adapter",
+    "installed versions recorded; not historical locked environment",
+    "no held-out compositions read by generator",
+    "no historical checkpoints reused"
+  ],
+  "scope": "step 1 single-model policy comparison; no ensemble superiority or acquisition efficiency inference"
+}

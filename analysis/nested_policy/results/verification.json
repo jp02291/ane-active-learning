@@ -1,0 +1,10 @@
+{
+  "folds": 15,
+  "prediction_rows": 270,
+  "final_generation_successes": 12,
+  "generation_tasks": 90,
+  "generation_rejections": 36,
+  "FoM_measured_wins": 9,
+  "FoM_measured_losses": 3,
+  "FoM_measured_ties": 3
+}

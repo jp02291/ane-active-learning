@@ -1,0 +1,151 @@
+seed,fold,policy,generation_success,target,subset,unit,n,mae,r2
+2025,1,real_only,True,SANE,all,uV/K,9,0.8946359955555556,-0.43384625218370587
+2025,1,real_only,True,kappa,measured,W/(m K),5,5.660776,-0.13956080721407105
+2025,1,real_only,True,kappa,all,W/(m K),9,3.7455348266666664,-0.1405716030204538
+2025,1,real_only,True,FoM,measured,um/A,5,0.08828704194888545,-0.9622473051110632
+2025,1,real_only,True,FoM,all,um/A,9,0.05823141842600369,-0.4375757760012611
+2025,1,always_wgan_with_fallback,True,SANE,all,uV/K,9,1.0711150444444444,-0.6059261662719222
+2025,1,always_wgan_with_fallback,True,kappa,measured,W/(m K),5,5.1996488,0.038083741606506294
+2025,1,always_wgan_with_fallback,True,kappa,all,W/(m K),9,3.858944715555555,-0.017654224700343057
+2025,1,always_wgan_with_fallback,True,FoM,measured,um/A,5,0.08573794964491097,-1.0911664374747678
+2025,1,always_wgan_with_fallback,True,FoM,all,um/A,9,0.06897779012290084,-0.7374184618132549
+2025,2,real_only,True,SANE,all,uV/K,9,0.7362071111111111,0.7836515477116085
+2025,2,real_only,True,kappa,measured,W/(m K),5,2.0210719999999998,0.2983047410119163
+2025,2,real_only,True,kappa,all,W/(m K),9,1.86520963,0.6084555082158432
+2025,2,real_only,True,FoM,measured,um/A,5,0.0775576348206423,0.12592482969362717
+2025,2,real_only,True,FoM,all,um/A,9,0.05302439666787567,0.5798480987551295
+2025,2,always_wgan_with_fallback,True,SANE,all,uV/K,9,0.6599014999999999,0.8881160430343498
+2025,2,always_wgan_with_fallback,True,kappa,measured,W/(m K),5,1.4085074000000006,0.43534178572733717
+2025,2,always_wgan_with_fallback,True,kappa,all,W/(m K),9,1.597687185555556,0.6354969562874964
+2025,2,always_wgan_with_fallback,True,FoM,measured,um/A,5,0.03604477336699933,0.8598557401870496
+2025,2,always_wgan_with_fallback,True,FoM,all,um/A,9,0.02909634934598145,0.919817959547196
+2025,3,real_only,True,SANE,all,uV/K,9,0.678055822222222,0.7766888593957822
+2025,3,real_only,True,kappa,measured,W/(m K),8,3.138878749999999,-1.301857593731083
+2025,3,real_only,True,kappa,all,W/(m K),9,3.055347045555555,-1.0099129686685377
+2025,3,real_only,True,FoM,measured,um/A,8,0.04170336773677638,0.7038463052775243
+2025,3,real_only,True,FoM,all,um/A,9,0.04101953876859479,0.7098846591271455
+2025,3,always_wgan_with_fallback,True,SANE,all,uV/K,9,0.5241880555555555,0.8613402171737636
+2025,3,always_wgan_with_fallback,True,kappa,measured,W/(m K),8,3.392380125,-1.589842839889024
+2025,3,always_wgan_with_fallback,True,kappa,all,W/(m K),9,3.29498949,-1.2603598124646096
+2025,3,always_wgan_with_fallback,True,FoM,measured,um/A,8,0.04077475863677892,0.7146935285403677
+2025,3,always_wgan_with_fallback,True,FoM,all,um/A,9,0.03815804369425037,0.7328825447843494
+2025,4,real_only,True,SANE,all,uV/K,9,0.583332477777778,0.827937262147333
+2025,4,real_only,True,kappa,measured,W/(m K),8,1.4037557500000004,0.6904651977708474
+2025,4,real_only,True,kappa,all,W/(m K),9,1.4832839933333335,0.6393985778733975
+2025,4,real_only,True,FoM,measured,um/A,8,0.04422497649908493,0.7600673687120749
+2025,4,real_only,True,FoM,all,um/A,9,0.0468952514794479,0.7006640680192159
+2025,4,always_wgan_with_fallback,True,SANE,all,uV/K,9,0.6594378066666667,0.7638879155605885
+2025,4,always_wgan_with_fallback,True,kappa,measured,W/(m K),8,2.180315875,0.2982407305515574
+2025,4,always_wgan_with_fallback,True,kappa,all,W/(m K),9,2.0912635488888887,0.2903614247035188
+2025,4,always_wgan_with_fallback,True,FoM,measured,um/A,8,0.03807890916873751,0.7812799040959075
+2025,4,always_wgan_with_fallback,True,FoM,all,um/A,9,0.04083936858307278,0.7308580717846276
+2025,5,real_only,True,SANE,all,uV/K,9,0.6524021166666667,0.6184608563733376
+2025,5,real_only,True,kappa,measured,W/(m K),6,2.546413,0.28541589730773675
+2025,5,real_only,True,kappa,all,W/(m K),9,2.9219212522222224,0.21156074410216963
+2025,5,real_only,True,FoM,measured,um/A,6,0.04419708691071365,0.5183350949437033
+2025,5,real_only,True,FoM,all,um/A,9,0.04440383432875895,0.31181874555390987
+2025,5,always_wgan_with_fallback,True,SANE,all,uV/K,9,0.5278434777777776,0.74732683681405
+2025,5,always_wgan_with_fallback,True,kappa,measured,W/(m K),6,2.6452943333333336,0.2705501248604295
+2025,5,always_wgan_with_fallback,True,kappa,all,W/(m K),9,2.6117041411111117,0.36742429749707184
+2025,5,always_wgan_with_fallback,True,FoM,measured,um/A,6,0.03522176458283796,0.546247194729218
+2025,5,always_wgan_with_fallback,True,FoM,all,um/A,9,0.03577853717497401,0.412419714963454
+314159,1,real_only,True,SANE,all,uV/K,9,0.5412437666666666,0.8794655488021028
+314159,1,real_only,True,kappa,measured,W/(m K),5,1.6951546,0.612821923522767
+314159,1,real_only,True,kappa,all,W/(m K),9,1.3491904622222224,0.7776541586631104
+314159,1,real_only,True,FoM,measured,um/A,5,0.0565114152663853,0.5381531707396834
+314159,1,real_only,True,FoM,all,um/A,9,0.038300851362437355,0.7298701047591976
+314159,1,always_wgan_with_fallback,True,SANE,all,uV/K,9,0.5744942599999998,0.8785598759389481
+314159,1,always_wgan_with_fallback,True,kappa,measured,W/(m K),5,1.6657328000000002,0.5875344701414837
+314159,1,always_wgan_with_fallback,True,kappa,all,W/(m K),9,2.0222463244444446,0.5325867904404478
+314159,1,always_wgan_with_fallback,True,FoM,measured,um/A,5,0.03891044764131745,0.7701580996393456
+314159,1,always_wgan_with_fallback,True,FoM,all,um/A,9,0.0378699515508155,0.8055456758180775
+314159,2,real_only,False,SANE,all,uV/K,9,0.4399199444444444,0.8061999981368169
+314159,2,real_only,False,kappa,measured,W/(m K),8,2.5415441250000006,-0.06597962305443539
+314159,2,real_only,False,kappa,all,W/(m K),9,2.3585339200000006,-0.048682930597466534
+314159,2,real_only,False,FoM,measured,um/A,8,0.03716901431471517,0.6563973681804338
+314159,2,real_only,False,FoM,all,um/A,9,0.03460279007850648,0.7353646092354988
+314159,2,always_wgan_with_fallback,False,SANE,all,uV/K,9,0.4399199444444444,0.8061999981368169
+314159,2,always_wgan_with_fallback,False,kappa,measured,W/(m K),8,2.5415441250000006,-0.06597962305443539
+314159,2,always_wgan_with_fallback,False,kappa,all,W/(m K),9,2.3585339200000006,-0.048682930597466534
+314159,2,always_wgan_with_fallback,False,FoM,measured,um/A,8,0.03716901431471517,0.6563973681804338
+314159,2,always_wgan_with_fallback,False,FoM,all,um/A,9,0.03460279007850648,0.7353646092354988
+314159,3,real_only,True,SANE,all,uV/K,9,0.5152121777777776,0.8958794083891921
+314159,3,real_only,True,kappa,measured,W/(m K),5,1.0827606000000003,0.6490353143498144
+314159,3,real_only,True,kappa,all,W/(m K),9,1.1960717777777785,0.7869200689796393
+314159,3,real_only,True,FoM,measured,um/A,5,0.02614008529652296,0.8531681397674273
+314159,3,real_only,True,FoM,all,um/A,9,0.020311712706343146,0.8915614737521237
+314159,3,always_wgan_with_fallback,True,SANE,all,uV/K,9,0.5970152222222223,0.858122166110654
+314159,3,always_wgan_with_fallback,True,kappa,measured,W/(m K),5,1.4858841999999992,-0.043271292154561714
+314159,3,always_wgan_with_fallback,True,kappa,all,W/(m K),9,1.452791122222222,0.5107355033167374
+314159,3,always_wgan_with_fallback,True,FoM,measured,um/A,5,0.034057998567150485,0.8182538503029635
+314159,3,always_wgan_with_fallback,True,FoM,all,um/A,9,0.030149797257950077,0.8236453572250797
+314159,4,real_only,True,SANE,all,uV/K,9,1.0610541888888887,-0.13814673060635663
+314159,4,real_only,True,kappa,measured,W/(m K),6,3.926248166666666,-0.6688546874531074
+314159,4,real_only,True,kappa,all,W/(m K),9,3.0467751677777772,-0.06565201457330505
+314159,4,real_only,True,FoM,measured,um/A,6,0.05721847769711946,0.21772720681434898
+314159,4,real_only,True,FoM,all,um/A,9,0.0535626386531516,0.10960004202005147
+314159,4,always_wgan_with_fallback,True,SANE,all,uV/K,9,1.2333234944444442,-0.3238702602568735
+314159,4,always_wgan_with_fallback,True,kappa,measured,W/(m K),6,4.807904916666666,-1.206535943091481
+314159,4,always_wgan_with_fallback,True,kappa,all,W/(m K),9,4.211379056666666,-0.5609628235232167
+314159,4,always_wgan_with_fallback,True,FoM,measured,um/A,6,0.06702814693610346,0.10238212784241385
+314159,4,always_wgan_with_fallback,True,FoM,all,um/A,9,0.07332863490969725,-0.23346477519971787
+314159,5,real_only,True,SANE,all,uV/K,9,0.32658773333333335,0.9296499343664343
+314159,5,real_only,True,kappa,measured,W/(m K),8,3.7341821875,0.39239029205784637
+314159,5,real_only,True,kappa,all,W/(m K),9,3.3401177177777774,0.39341508405269476
+314159,5,real_only,True,FoM,measured,um/A,8,0.04167282262608647,0.7211631778777985
+314159,5,real_only,True,FoM,all,um/A,9,0.037304126937473134,0.7737209058907228
+314159,5,always_wgan_with_fallback,True,SANE,all,uV/K,9,0.5412080666666665,0.8306991085585054
+314159,5,always_wgan_with_fallback,True,kappa,measured,W/(m K),8,4.234730875,0.28292610729121836
+314159,5,always_wgan_with_fallback,True,kappa,all,W/(m K),9,3.8894643288888884,0.2806635201651414
+314159,5,always_wgan_with_fallback,True,FoM,measured,um/A,8,0.043194885906736424,0.5872755517342927
+314159,5,always_wgan_with_fallback,True,FoM,all,um/A,9,0.03974839738438518,0.6630881137244085
+42,1,real_only,False,SANE,all,uV/K,9,1.032900877777778,0.16342497593762073
+42,1,real_only,False,kappa,measured,W/(m K),5,3.006734399999999,-0.7659178628040435
+42,1,real_only,False,kappa,all,W/(m K),9,2.7680217577777775,-0.03533630724925341
+42,1,real_only,False,FoM,measured,um/A,5,0.07495431817456076,0.06929060695798472
+42,1,real_only,False,FoM,all,um/A,9,0.05417140556422836,0.13713437873195455
+42,1,always_wgan_with_fallback,False,SANE,all,uV/K,9,1.032900877777778,0.16342497593762073
+42,1,always_wgan_with_fallback,False,kappa,measured,W/(m K),5,3.006734399999999,-0.7659178628040435
+42,1,always_wgan_with_fallback,False,kappa,all,W/(m K),9,2.7680217577777775,-0.03533630724925341
+42,1,always_wgan_with_fallback,False,FoM,measured,um/A,5,0.07495431817456076,0.06929060695798472
+42,1,always_wgan_with_fallback,False,FoM,all,um/A,9,0.05417140556422836,0.13713437873195455
+42,2,real_only,False,SANE,all,uV/K,9,0.4615961222222222,0.5143631170570462
+42,2,real_only,False,kappa,measured,W/(m K),7,2.4160509285714284,-0.02515540535605476
+42,2,real_only,False,kappa,all,W/(m K),9,2.535387612222222,0.27414639413444886
+42,2,real_only,False,FoM,measured,um/A,7,0.04413206986335072,0.24182199308875052
+42,2,real_only,False,FoM,all,um/A,9,0.04379681968111274,0.17050685573518387
+42,2,always_wgan_with_fallback,False,SANE,all,uV/K,9,0.4615961222222222,0.5143631170570462
+42,2,always_wgan_with_fallback,False,kappa,measured,W/(m K),7,2.4160509285714284,-0.02515540535605476
+42,2,always_wgan_with_fallback,False,kappa,all,W/(m K),9,2.535387612222222,0.27414639413444886
+42,2,always_wgan_with_fallback,False,FoM,measured,um/A,7,0.04413206986335072,0.24182199308875052
+42,2,always_wgan_with_fallback,False,FoM,all,um/A,9,0.04379681968111274,0.17050685573518387
+42,3,real_only,True,SANE,all,uV/K,9,0.8686197888888887,0.7645803239924094
+42,3,real_only,True,kappa,measured,W/(m K),8,3.86027175,-0.3074097957139499
+42,3,real_only,True,kappa,all,W/(m K),9,3.5015899888888886,-0.26973553200939393
+42,3,real_only,True,FoM,measured,um/A,8,0.07098464278611735,0.4835492301340739
+42,3,real_only,True,FoM,all,um/A,9,0.06653006039062921,0.5221679504756612
+42,3,always_wgan_with_fallback,True,SANE,all,uV/K,9,0.8786428000000001,0.7704238274000912
+42,3,always_wgan_with_fallback,True,kappa,measured,W/(m K),8,2.0707973749999997,0.31826866147146793
+42,3,always_wgan_with_fallback,True,kappa,all,W/(m K),9,2.0223433444444443,0.3180093840383751
+42,3,always_wgan_with_fallback,True,FoM,measured,um/A,8,0.06559442406641296,0.5351714084134709
+42,3,always_wgan_with_fallback,True,FoM,all,um/A,9,0.05952206407394435,0.5766090386070564
+42,4,real_only,True,SANE,all,uV/K,9,0.6805461633333332,0.8219492338703999
+42,4,real_only,True,kappa,measured,W/(m K),5,4.972320599999999,0.06622521107084067
+42,4,real_only,True,kappa,all,W/(m K),9,3.2316480944444432,0.1142302893362872
+42,4,real_only,True,FoM,measured,um/A,5,0.02953374741987321,0.7635001237305981
+42,4,real_only,True,FoM,all,um/A,9,0.029215972003440796,0.837671780020384
+42,4,always_wgan_with_fallback,True,SANE,all,uV/K,9,0.3577085022222221,0.9464934604722918
+42,4,always_wgan_with_fallback,True,kappa,measured,W/(m K),5,4.451681599999999,0.27015696521961907
+42,4,always_wgan_with_fallback,True,kappa,all,W/(m K),9,2.8409037322222215,0.311820856163735
+42,4,always_wgan_with_fallback,True,FoM,measured,um/A,5,0.023696462817658106,0.8481767355778063
+42,4,always_wgan_with_fallback,True,FoM,all,um/A,9,0.024935280290930936,0.8794425373393239
+42,5,real_only,True,SANE,all,uV/K,9,1.0280406793333334,-0.4697517407131242
+42,5,real_only,True,kappa,measured,W/(m K),7,4.7459368571428575,-3.999069601231578
+42,5,real_only,True,kappa,all,W/(m K),9,3.976123792222223,-2.88132998705631
+42,5,real_only,True,FoM,measured,um/A,7,0.0657037398982394,-1.9959508027164463
+42,5,real_only,True,FoM,all,um/A,9,0.06382687674555661,-0.7679850986849233
+42,5,always_wgan_with_fallback,True,SANE,all,uV/K,9,0.7715098777777779,0.39079968486403693
+42,5,always_wgan_with_fallback,True,kappa,measured,W/(m K),7,2.3192938571428567,-0.0774814556922152
+42,5,always_wgan_with_fallback,True,kappa,all,W/(m K),9,2.0721798611111115,0.14209382930481906
+42,5,always_wgan_with_fallback,True,FoM,measured,um/A,7,0.056065775700958505,-0.6799736451304299
+42,5,always_wgan_with_fallback,True,FoM,all,um/A,9,0.05450954598299154,-0.06598548512189373

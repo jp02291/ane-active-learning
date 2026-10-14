@@ -100,7 +100,8 @@ analysis/    the published figures that are not produced by a pipeline stage.
 │                 Discussion
 ├── baseline/     conditional random and diversity-only acquisition baselines
 ├── disorder/     Fig. 6(d) disorder parameters and the Fig. 6 source data
-└── robustness_checks/  nested branch comparison and conditional baselines
+├── nested_policy/     completed fold-local nested code, raw records and MAE/R2 results
+└── robustness_checks/  conditional acquisition baselines
 ```
 
 `augment.py`, `surrogate.py` and `select.py` implement the Methods sections on
@@ -275,7 +276,7 @@ split, and the resulting synthetic samples are shared across HPO folds. Thus,
 inner validation rows contributed indirectly to generation. These internal
 scores are tuning diagnostics, not independent estimates of augmentation
 benefit. The separately deposited retrospective nested comparison has its own
-scope and limitations, described in `analysis/robustness_checks/README.md`.
+scope and limitations, described in `analysis/nested_policy/README.md`.
 
 ---
 
@@ -367,11 +368,10 @@ Fig. 3 prediction records support the reported held-out branch comparisons,
 but they do not reconstruct every candidate scenario or a historical CV ranking.
 The scenario choices were manual, as described above.
 
-`RELEASE_VERIFICATION.json` and `SHA256_MANIFEST.csv` describe the original
-v1.1.0 deposit. They are retained as historical records, not regenerated to
-make the correction appear part of that release. New working-tree edits will
-therefore differ from that original manifest. See `CHANGELOG.md` for the
-unreleased correction; this change does not republish the Zenodo deposit.
+`RELEASE_VERIFICATION.json` remains the historical v1.1.0 verification record.
+`UPDATE_VERIFICATION.json` describes this correction and nested replacement;
+`SHA256_MANIFEST.csv` is regenerated for the updated package. The versioned
+Zenodo deposit has not been republished. See `CHANGELOG.md` for the changes.
 
 The partitions themselves are deposited for all three cycles. Cycle 1's was
 retained. The cycle 2 and cycle 3 membership was recovered from the Fig. 3
@@ -413,3 +413,11 @@ journal record once it appears.
 ## License
 
 MIT.
+
+## Revised SI nested evaluation
+
+The completed baseline evaluation, frozen source, raw prediction and generation
+records, and a standard-library MAE/R2 reproduction script are in
+[`analysis/nested_policy/`](analysis/nested_policy/README.md). Its publication
+comparison is Real-only versus WGAN with fallback over all 15 outer folds.
+It supersedes the earlier simplified nested files; retry analyses are excluded.

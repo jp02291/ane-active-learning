@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-14",
+  "scope": "Manual campaign selection correction and replacement of simplified nested audit with completed single-attempt nested evaluation",
+  "baseline_reference_commit": "c75a57025e29632ce0b6824c3b38db81c3b29247",
+  "manual_selection_commit": "585a3d91f6c2390b668a0d30ee75133228c2fbf3",
+  "tests": {
+    "campaign_and_nested_deposit": 54,
+    "frozen_evaluator_and_worker_lifecycle": 10
+  },
+  "independent_metric_rows_matching_prior_report": 20,
+  "metric_tolerance": 1e-12,
+  "training_rerun": false,
+  "retry_results_included": false,
+  "manuscript_modified": false,
+  "zenodo_modified": false,
+  "nested_verification": {
+    "folds": 15,
+    "prediction_rows": 270,
+    "final_generation_successes": 12,
+    "generation_tasks": 90,
+    "generation_rejections": 36,
+    "FoM_measured_wins": 9,
+    "FoM_measured_losses": 3,
+    "FoM_measured_ties": 3
+  },
+  "integrity": "Frozen and raw file hashes are recorded in analysis/nested_policy/provenance.json. Root SHA256_MANIFEST.csv lists the updated package except itself. RELEASE_VERIFICATION.json describes the historical v1.1.0 release."
+}

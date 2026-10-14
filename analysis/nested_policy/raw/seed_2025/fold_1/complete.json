@@ -1,0 +1,60 @@
+{
+  "decision": {
+    "selected": "real_only",
+    "real_inner_score": 0.017159791849553584,
+    "wgan_inner_score": 0.01945030118731465,
+    "full_generation_success": true,
+    "criterion": "mean minimum fold-validation scaled MSE including model regularization; ties choose real-only",
+    "outer_targets_used": false
+  },
+  "summaries": [
+    {
+      "root_seed": 2025,
+      "outer_fold": 1,
+      "policy": "real_only",
+      "mae_fom_all": 0.058231418474128015,
+      "mae_fom_measured": 0.08828703894784148,
+      "scaled_mse": 0.11763431543930818,
+      "mae_kappa": 3.7455347519257267,
+      "mae_sane": 0.894636007876926,
+      "invalid_prediction_count": 0,
+      "n": 9,
+      "n_measured": 5,
+      "adaptive_selected": "real_only",
+      "full_generation_success": true,
+      "inner_generation_successes": 2
+    },
+    {
+      "root_seed": 2025,
+      "outer_fold": 1,
+      "policy": "always_wgan_with_fallback",
+      "mae_fom_all": 0.06897779651179264,
+      "mae_fom_measured": 0.08573795392682251,
+      "scaled_mse": 0.11385333860830814,
+      "mae_kappa": 3.8589447479584416,
+      "mae_sane": 1.0711150811894734,
+      "invalid_prediction_count": 0,
+      "n": 9,
+      "n_measured": 5,
+      "adaptive_selected": "real_only",
+      "full_generation_success": true,
+      "inner_generation_successes": 2
+    },
+    {
+      "root_seed": 2025,
+      "outer_fold": 1,
+      "policy": "adaptive",
+      "mae_fom_all": 0.058231418474128015,
+      "mae_fom_measured": 0.08828703894784148,
+      "scaled_mse": 0.11763431543930818,
+      "mae_kappa": 3.7455347519257267,
+      "mae_sane": 0.894636007876926,
+      "invalid_prediction_count": 0,
+      "n": 9,
+      "n_measured": 5,
+      "adaptive_selected": "real_only",
+      "full_generation_success": true,
+      "inner_generation_successes": 2
+    }
+  ]
+}

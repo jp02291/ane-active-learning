@@ -1,0 +1,9 @@
+{
+  "num_layers": 1,
+  "num_neurons": 59,
+  "learning_rate": 0.002686149225040877,
+  "l2": 3.343917428691909e-06,
+  "dropout": 0.1774124170985743,
+  "batch_size": 8,
+  "w_gen": 1.0
+}
