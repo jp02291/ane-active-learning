@@ -1,0 +1,8 @@
+{
+  "selected": "real_only",
+  "real_inner_score": 0.028599882684648036,
+  "wgan_inner_score": 0.03280056985039023,
+  "full_generation_success": true,
+  "criterion": "mean minimum fold-validation scaled MSE including model regularization; ties choose real-only",
+  "outer_targets_used": false
+}

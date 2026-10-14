@@ -1,5 +1,26 @@
 # Changelog
 
+## Unreleased - campaign selection correction and completed nested evaluation
+
+- Correct the account of the historical campaign: researchers manually
+  reviewed held-out kappa and |S_ANE| MAEs together; both targets favored the
+  same branch in each reported cycle. Internal CV tuned model parameters but
+  did not automatically choose the campaign scenario.
+- Remove CV sorting from the stage-2 scenario summary. Keep execution order,
+  all tuning diagnostics, and the explicit cycle-1/3 augmented and cycle-2
+  real-only configuration paths. No new scalar selection rule is introduced.
+- Explain that legacy `test` files/fields refer to scenario-selection
+  validation data in the campaign, and that bootstrap intervals do not correct
+  for selection.
+- Preserve campaign data, splits, metrics, model settings and the historical
+  release verification. Replace the obsolete simplified nested outputs with
+  the completed single-attempt, inner-fold-local evaluation, its frozen source,
+  raw results and independently reproducible MAE/R2 summaries. Include all 15
+  folds and failure fallback; exclude retry experiments. Retain the original
+  ancillary Adaptive records only as raw provenance, not SI comparison rows.
+- Regenerate the package manifest and add update verification. No training is
+  rerun for packaging, and the archived Zenodo release is not modified.
+
 ## 1.1.0 - 2026-09-29
 
 Aligns the archive with the revised manuscript and supplementary information.

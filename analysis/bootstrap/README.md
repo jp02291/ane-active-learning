@@ -3,7 +3,9 @@
 `single_model_bootstrap_selected_models_seed42.ipynb` reproduces the
 single-model MAEs and the paired percentile-bootstrap comparison used for
 Fig. 3. The six deposited `test_predictions.csv` files preserve the paired
-test-sample order for the real-only and augmented branches.
+held-out sample order for the real-only and augmented branches. These files
+retain their legacy names; the campaign used this held-out set for manual
+scenario selection, so it is a validation set rather than an independent test.
 
 The point estimates do not depend on the bootstrap seed. The run uses 5,000
 replicates with `BOOTSTRAP_SEED = 42`; the effective replicate seeds are
@@ -16,7 +18,7 @@ jupyter nbconvert --to notebook --execute --inplace \
   single_model_bootstrap_selected_models_seed42.ipynb
 ```
 
-The bootstrap quantifies uncertainty from the finite held-out test samples. It
-does not quantify model-initialization, data-partition, generator, or
-measurement uncertainty. Those limitations must remain in the figure caption
+The bootstrap describes resampling variability on the finite held-out
+scenario-selection validation set. It does not account for scenario selection,
+model-initialization, data-partition, generator, or measurement uncertainty. Those limitations must remain in the figure caption
 and supplementary text.

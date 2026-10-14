@@ -1,0 +1,6 @@
+{
+  "completed_outer_folds": 15,
+  "expected_outer_folds": 15,
+  "complete": true,
+  "interpretation": "Retrospective single-DNN audit; not independent datasets, not campaign reproduction. Always-WGAN includes explicitly reported real-only fallback on generation rejection."
+}

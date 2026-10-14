@@ -1,0 +1,56 @@
+{
+  "training_ids": [
+    "C1_S1_001",
+    "C1_S1_002",
+    "C1_S1_005",
+    "C1_S1_008",
+    "C1_S1_010",
+    "C1_S1_011",
+    "C1_S1_012",
+    "C1_S1_015",
+    "C1_S1_017",
+    "C1_S1_019",
+    "C1_S1_022",
+    "C1_S1_024",
+    "C1_S1_027",
+    "C1_S1_028",
+    "C1_S1_029",
+    "C1_S1_030",
+    "C1_S1_031",
+    "C1_S1_032",
+    "C1_S1_034",
+    "C1_S1_035",
+    "C1_S1_036",
+    "C1_S1_037",
+    "C1_S1_038",
+    "C1_S1_039",
+    "C1_S1_040",
+    "C1_S1_041",
+    "C1_S1_042",
+    "C1_S1_044",
+    "C1_S1_045"
+  ],
+  "seed": 204084,
+  "requested_n": 200,
+  "success": true,
+  "csv": "D:\\Codex_results\\ANE_nested_policy_20261012\\seed_42\\fold_2\\inner\\inner_4\\gan\\augmented_n200.csv",
+  "manifest": {
+    "best_epoch": 300,
+    "best_delta_mae": -0.002833987004789762,
+    "unique_pool_size": 256,
+    "oversampled_elements": [
+      "Co",
+      "Mn",
+      "Ge"
+    ],
+    "surrogate_filter": true,
+    "surrogate_thresholds": [
+      9.765159273681643,
+      1.4801607159423826
+    ],
+    "surrogate_model_dir": "D:\\Codex_results\\ANE_nested_policy_20261012\\seed_42\\fold_2\\inner\\inner_4\\reference",
+    "written": {
+      "200": "D:\\Codex_results\\ANE_nested_policy_20261012\\seed_42\\fold_2\\inner\\inner_4\\gan\\augmented_n200.csv"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "best_epoch": 7600,
+  "best_delta_mae": -0.1029476320819962,
+  "unique_pool_size": 803,
+  "oversampled_elements": [
+    "Co",
+    "Mn",
+    "Pt"
+  ],
+  "surrogate_filter": true,
+  "surrogate_thresholds": [
+    4.097977344613284,
+    2.099220862045288
+  ],
+  "surrogate_model_dir": "D:\\Codex_results\\ANE_nested_policy_20261012\\seed_2025\\fold_2\\real_only",
+  "written": {
+    "200": "D:\\Codex_results\\ANE_nested_policy_20261012\\seed_2025\\fold_2\\full_gan\\augmented_n200.csv"
+  }
+}

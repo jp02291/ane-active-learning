@@ -1,0 +1,61 @@
+scope,seed,policy,target,subset,unit,n,mae,r2
+all_15_folds,42,real_only,SANE,all,uV/K,45,0.8143407263111112,0.4950227956088328
+all_15_folds,2025,real_only,SANE,all,uV/K,45,0.7089267046666667,0.6210970122781805
+all_15_folds,314159,real_only,SANE,all,uV/K,45,0.5768035622222222,0.7062046798294705
+all_15_folds,42,real_only,kappa,measured,W/(m K),32,3.778480109375,-0.5035013534366228
+all_15_folds,2025,real_only,kappa,measured,W/(m K),32,2.8133998124999997,0.11035704012512126
+all_15_folds,314159,real_only,kappa,measured,W/(m K),32,2.7391523593750002,0.25248080498828285
+all_15_folds,42,real_only,kappa,all,W/(m K),45,3.2025542491111105,-0.3043212141467442
+all_15_folds,2025,real_only,kappa,all,W/(m K),45,2.6142593495555553,0.17616498001564707
+all_15_folds,314159,real_only,kappa,all,W/(m K),45,2.258137809111111,0.36501734950343534
+all_15_folds,42,real_only,FoM,measured,um/A,32,0.05809900433100749,0.2608324042782164
+all_15_folds,2025,real_only,FoM,measured,um/A,32,0.05568227059996285,0.3994681259809296
+all_15_folds,314159,real_only,FoM,measured,um/A,32,0.043353220766364726,0.5967136599643237
+all_15_folds,42,real_only,FoM,all,um/A,45,0.05150822687699355,0.3631971486266362
+all_15_folds,2025,real_only,FoM,all,um/A,45,0.048714887934136204,0.47942431284285025
+all_15_folds,314159,real_only,FoM,all,um/A,45,0.03681642394758234,0.6580123256789626
+all_15_folds,42,always_wgan_with_fallback,SANE,all,uV/K,45,0.7004716360000001,0.6240527945199422
+all_15_folds,2025,always_wgan_with_fallback,SANE,all,uV/K,45,0.6884971768888889,0.6520706531157814
+all_15_folds,314159,always_wgan_with_fallback,SANE,all,uV/K,45,0.6771921975555555,0.6471136799646873
+all_15_folds,42,always_wgan_with_fallback,kappa,measured,W/(m K),32,2.7189335156249994,0.19738039033958132
+all_15_folds,2025,always_wgan_with_fallback,kappa,measured,W/(m K),32,2.9216910937500002,0.11075531145496209
+all_15_folds,314159,always_wgan_with_fallback,kappa,measured,W/(m K),32,3.087991078125,0.07937395329315378
+all_15_folds,42,always_wgan_with_fallback,kappa,all,W/(m K),45,2.4477672615555552,0.2690786220654987
+all_15_folds,2025,always_wgan_with_fallback,kappa,all,W/(m K),45,2.6909178162222225,0.18543567847923592
+all_15_folds,314159,always_wgan_with_fallback,kappa,all,W/(m K),45,2.7868829504444443,0.14939466900016507
+all_15_folds,42,always_wgan_with_fallback,FoM,measured,um/A,32,0.05373106926383008,0.38876503551809427
+all_15_folds,2025,always_wgan_with_fallback,FoM,measured,um/A,32,0.045346048281272214,0.5362342158303417
+all_15_folds,314159,always_wgan_with_fallback,FoM,measured,um/A,32,0.044060072325955414,0.576669423230709
+all_15_folds,42,always_wgan_with_fallback,FoM,all,um/A,45,0.04738702311864159,0.4685926107306786
+all_15_folds,2025,always_wgan_with_fallback,FoM,all,um/A,45,0.042570017784235886,0.5708015656342171
+all_15_folds,314159,always_wgan_with_fallback,FoM,all,um/A,45,0.0431399142362709,0.5773127533336447
+generation_success_only,42,real_only,SANE,all,uV/K,27,0.8590688771851851,0.5678991553447371
+generation_success_only,2025,real_only,SANE,all,uV/K,45,0.7089267046666667,0.6210970122781805
+generation_success_only,314159,real_only,SANE,all,uV/K,36,0.6110244666666667,0.6909101526749887
+generation_success_only,42,real_only,kappa,measured,W/(m K),20,4.44826675,-0.5805346099939044
+generation_success_only,2025,real_only,kappa,measured,W/(m K),32,2.8133998124999997,0.11035704012512126
+generation_success_only,314159,real_only,kappa,measured,W/(m K),24,2.805021770833333,0.27295095245374335
+generation_success_only,42,real_only,kappa,all,W/(m K),27,3.569787291851852,-0.47420749729239775
+generation_success_only,2025,real_only,kappa,all,W/(m K),45,2.6142593495555553,0.17616498001564707
+generation_success_only,314159,real_only,kappa,all,W/(m K),36,2.233038781388889,0.40023469922916755
+generation_success_only,42,real_only,FoM,measured,um/A,20,0.05877360293379903,0.2913807025727855
+generation_success_only,2025,real_only,FoM,measured,um/A,32,0.05568227059996285,0.3994681259809296
+generation_success_only,314159,real_only,FoM,measured,um/A,24,0.04541462291691458,0.5861441780675147
+generation_success_only,42,real_only,FoM,all,um/A,27,0.05319096971320888,0.42935821637534366
+generation_success_only,2025,real_only,FoM,all,um/A,45,0.048714887934136204,0.47942431284285025
+generation_success_only,314159,real_only,FoM,all,um/A,36,0.037369832414851305,0.6433579899703222
+generation_success_only,42,always_wgan_with_fallback,SANE,all,uV/K,27,0.6692870599999999,0.7686887586850379
+generation_success_only,2025,always_wgan_with_fallback,SANE,all,uV/K,45,0.6884971768888889,0.6520706531157814
+generation_success_only,314159,always_wgan_with_fallback,SANE,all,uV/K,36,0.7365102608333332,0.6229281514973077
+generation_success_only,42,always_wgan_with_fallback,kappa,measured,W/(m K),20,2.7529921999999996,0.2661379259349843
+generation_success_only,2025,always_wgan_with_fallback,kappa,measured,W/(m K),32,2.9216910937500002,0.11075531145496209
+generation_success_only,314159,always_wgan_with_fallback,kappa,measured,W/(m K),24,3.2701400625,0.07796284456663682
+generation_success_only,42,always_wgan_with_fallback,kappa,all,W/(m K),27,2.311808979259259,0.3069534070284996
+generation_success_only,2025,always_wgan_with_fallback,kappa,all,W/(m K),45,2.6909178162222225,0.18543567847923592
+generation_success_only,314159,always_wgan_with_fallback,kappa,all,W/(m K),36,2.8939702080555554,0.1654087961563514
+generation_success_only,42,always_wgan_with_fallback,FoM,measured,um/A,20,0.05178490682631519,0.49617816547247473
+generation_success_only,2025,always_wgan_with_fallback,FoM,measured,um/A,32,0.045346048281272214,0.5362342158303417
+generation_success_only,314159,always_wgan_with_fallback,FoM,measured,um/A,24,0.0463570916630355,0.5625536239053499
+generation_success_only,42,always_wgan_with_fallback,FoM,all,um/A,27,0.04632229678262228,0.5858572005621918
+generation_success_only,2025,always_wgan_with_fallback,FoM,all,um/A,45,0.042570017784235886,0.5708015656342171
+generation_success_only,314159,always_wgan_with_fallback,FoM,all,um/A,36,0.045274195275712,0.5478735958616583

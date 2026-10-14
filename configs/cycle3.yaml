@@ -7,13 +7,14 @@
 #   n_test = 10 reproduces the held-out size reported for this cycle.
 #
 # SELECTED SCENARIO
-#   The internal cross-validation criterion retained augmentation with n = 200 synthetic samples
-#   in this cycle (Supplementary Table S8). The surrogate and selection paths
-#   below therefore point at that scenario, so that stages 3 and 4 build the
-#   ensemble the campaign actually used. Stage 2 still evaluates every scenario
-#   in gan.generated_sizes and writes scenario_summary.csv; a fresh search may
-#   rank them differently, which is why the campaign's choice is pinned here
-#   rather than read back from that file.
+#   The researchers manually selected augmentation with 200 synthetic samples
+#   after reviewing held-out MAEs for kappa and |S_ANE| together. Both targets
+#   favored the same branch in this cycle. The held-out set served as a
+#   scenario-selection validation set, not an independent test set.
+#   The paths below record that campaign choice (Supplementary Table S8).
+#   Stage 2 writes scenario_summary.csv in execution order without an automatic
+#   ranking or winner. Stages 3 and 4 use these configured paths, not its first row.
+#   The compared augmented branch used 200 synthetic samples in all three cycles.
 #
 # ARTIFACTS
 #   artifact_root = artifacts/cycle3. Every cycle writes under its own root so that a
