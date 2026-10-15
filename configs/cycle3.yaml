@@ -54,6 +54,11 @@
 #   from the original notebooks. See
 #   data/reported_splits/cycle3/recovery_manifest.json.
 #
+# DIVERSITY
+#   selection.diversity_distance is 0.05 in this cycle (0.10 in cycles 1 and 2),
+#   as stated in Methods. The cycle-3 nominations are consistent with it: the
+#   smallest distance between two nominations of the same selection mode is 0.051.
+#
 cycle: 3
 artifact_root: artifacts/cycle3
 split:
@@ -206,7 +211,7 @@ selection:
     - 0.0
     - 0.25
   top_k: 5
-  diversity_distance: 0.1
+  diversity_distance: 0.05
   require_positive_s_ane: true
   require_positive_kappa: true
   kappa_inverse_mode: add_eps

@@ -20,6 +20,16 @@
   ancillary Adaptive records only as raw provenance, not SI comparison rows.
 - Regenerate the package manifest and add update verification. No training is
   rerun for packaging, and the archived Zenodo release is not modified.
+- Fig. 6(d): `analysis/disorder/compute_disorder.py` now computes Gamma_M
+  with Eq. (S4) of Supplementary Note S7, including the (M_s / M_avg)^2 weight
+  on the site combination. The previous script omitted that weight and gave
+  2.46, 4.71 and 6.04 x 1e-2 for x = 0.0625, 0.12 and 0.1875 instead of the
+  plotted 2.67, 3.88 and 3.25 x 1e-2. The volume parameter Gamma_V, which the
+  manuscript does not show, is removed. The source data, results, README and
+  `tests/test_disorder_reproduction.py` are updated accordingly.
+- `configs/cycle3.yaml`: `selection.diversity_distance` corrected from 0.1 to
+  0.05, the value stated in Methods and consistent with the cycle-3
+  nominations (smallest within-mode distance 0.051).
 
 ## 1.1.0 - 2026-09-29
 
