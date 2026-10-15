@@ -1,7 +1,7 @@
 # Closed-loop active learning for anomalous Nernst heat-flux sensor alloys
 
-Code and data accompanying *Discovery of high-sensitivity heat-flux sensor
-materials via active learning*.
+Code and data accompanying *Identification of anomalous Nernst alloys with an
+improved heat-flux-sensing figure of merit via closed-loop active learning*.
 
 The framework searches an eight-element alloy space for compositions that
 maximize the material-level heat-flux sensitivity |*S*<sub>ANE</sub>| / κ. At
@@ -370,8 +370,8 @@ The scenario choices were manual, as described above.
 
 `RELEASE_VERIFICATION.json` remains the historical v1.1.0 verification record.
 `UPDATE_VERIFICATION.json` describes this correction and nested replacement;
-`SHA256_MANIFEST.csv` is regenerated for the updated package. The versioned
-Zenodo deposit has not been republished. See `CHANGELOG.md` for the changes.
+`SHA256_MANIFEST.csv` is regenerated for the updated package. See
+`CHANGELOG.md` for the changes.
 
 The partitions themselves are deposited for all three cycles. Cycle 1's was
 retained. The cycle 2 and cycle 3 membership was recovered from the Fig. 3
@@ -390,18 +390,18 @@ recovered set passes.
 
 ## Citation
 
-This version is archived at [10.5281/zenodo.23027635](https://doi.org/10.5281/zenodo.23027635); the
+This version is archived at [10.5281/zenodo.23382506](https://doi.org/10.5281/zenodo.23382506); the
 concept DOI [10.5281/zenodo.22764249](https://doi.org/10.5281/zenodo.22764249) always resolves to
 the latest version. See `CITATION.cff`.
 
 ```bibtex
 @software{ane_active_learning,
-  title  = {Code and data for: Discovery of high-sensitivity heat-flux sensor materials via active learning},
+  title  = {Code and data for: Identification of anomalous Nernst alloys with an improved heat-flux-sensing figure of merit via closed-loop active learning},
   author = {Park, Jinho and Jang, Byungkwan},
   year   = {2026},
-  version = {1.1.0},
-  doi    = {10.5281/zenodo.23027635},
-  url    = {https://doi.org/10.5281/zenodo.23027635}
+  version = {1.2.0},
+  doi    = {10.5281/zenodo.23382506},
+  url    = {https://doi.org/10.5281/zenodo.23382506}
 }
 ```
 

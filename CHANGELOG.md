@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased - campaign selection correction and completed nested evaluation
+## 1.2.0 - 2026-10-15 - campaign selection correction and completed nested evaluation
 
 - Correct the account of the historical campaign: researchers manually
   reviewed held-out kappa and |S_ANE| MAEs together; both targets favored the
@@ -19,7 +19,7 @@
   folds and failure fallback; exclude retry experiments. Retain the original
   ancillary Adaptive records only as raw provenance, not SI comparison rows.
 - Regenerate the package manifest and add update verification. No training is
-  rerun for packaging, and the archived Zenodo release is not modified.
+  rerun for packaging.
 - Fig. 6(d): `analysis/disorder/compute_disorder.py` now computes Gamma_M
   with Eq. (S4) of Supplementary Note S7, including the (M_s / M_avg)^2 weight
   on the site combination. The previous script omitted that weight and gave
